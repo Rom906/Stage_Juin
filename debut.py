@@ -1,4 +1,6 @@
-import subprocess
+from fonctions import generation_pdf, ecrire_latex
+
+
 contenu_latex = r"""
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
@@ -27,8 +29,6 @@ contenu_latex = r"""
 \end{document}
 """
 
-# Écriture dans un fichier
-with open("qcm_exemple.tex", "w", encoding="utf-8") as f:
-    f.write(contenu_latex)
+fichier_latex = ecrire_latex(contenu_latex, "qcm_exemple.tex")
 
-subprocess.run(["pdflatex", "qcm_exemple.tex"])
+generation_pdf(fichier_latex)
