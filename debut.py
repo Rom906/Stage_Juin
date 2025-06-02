@@ -1,5 +1,5 @@
 import subprocess
-contenu_latex = r""" 
+contenu_latex = r"""
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
