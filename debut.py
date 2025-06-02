@@ -1,34 +1,8 @@
-from fonctions import generation_pdf, ecrire_latex
+from fonctions import generation_pdf, ecrire_latex, generer_debut_latex
 
+debut = generer_debut_latex("Test 1")
+debut += r"""\end{document}"""
 
-contenu_latex = r"""
-\documentclass[12pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[french]{babel}
-\usepackage{enumitem}
-\usepackage{pifont}
-
-\begin{document}
-
-\section*{QCM Exemple}
-
-\textbf{Question 1 :} Quelle est la capitale de la France ?\\
-\begin{itemize}[label=\ding{113}]
-  \item Berlin
-  \item Madrid
-  \item Rome
-  \item Paris
-\end{itemize}
-
-\vspace{0.5cm}
-
-\textbf{Question 2 :} Décrivez brièvement la Révolution française.\\
-\vspace{3cm}
-
-\end{document}
-"""
-
-fichier_latex = ecrire_latex(contenu_latex, "qcm_exemple.tex")
+fichier_latex = ecrire_latex(debut, "qcm_exemple.tex")
 
 generation_pdf(fichier_latex)
