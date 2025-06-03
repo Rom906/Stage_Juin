@@ -26,8 +26,8 @@ def ecrire_latex(fichier_texte, titre):
 
 
 def generation_pdf(fichier_latex):
-     pdf = subprocess.run(["pdflatex", fichier_latex])
-     return pdf
+    pdf = subprocess.run(["pdflatex", fichier_latex])
+    return pdf
 
 
 # Base de donnée
