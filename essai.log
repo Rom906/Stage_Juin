@@ -1,0 +1,679 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.6.3)  3 JUN 2025 17:44
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**./essai.tex
+(essai.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-04-29>
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/base\article
+.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.
+clo
+File: size10.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count272
+\c@section=\count273
+\c@subsection=\count274
+\c@subsubsection=\count275
+\c@paragraph=\count276
+\c@subparagraph=\count277
+\c@figure=\count278
+\c@table=\count279
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen146
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/generic/babel\babe
+l.sty
+Package: babel 2025/05/14 v25.9 The multilingual framework for pdfLaTeX, LuaLaT
+eX and XeLaTeX
+\babel@savecnt=\count280
+\U@D=\dimen147
+\l@unhyphenated=\language79
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtb
+abel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count281
+
+*************************************
+* Local config file bblopts.cfg used
+*
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopt
+s.cfg
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/generic/babel-fren
+ch\francais.ldf
+Language: francais 2024-07-25 v3.6c French support from the babel system
+
+
+Package francais.ldf Warning: Option `francais' for Babel is *deprecated*,
+(francais.ldf)                it might be removed sooner or later. Please
+(francais.ldf)                use `french' instead; reported on input line 31.
+
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/generic/babel-fren
+ch\french.ldf
+Language: french 2024-07-25 v3.6c French support from the babel system
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/generic/babel/loca
+le/fr\babel-french.tex
+Package babel Info: Importing font and identification data for french
+(babel)             from babel-fr.ini. Reported on input line 11.
+)
+Package babel Info: Hyphen rules for 'acadian' set to \l@french
+(babel)             (\language22). Reported on input line 91.
+Package babel Info: Hyphen rules for 'canadien' set to \l@french
+(babel)             (\language22). Reported on input line 92.
+\FB@stdchar=\count282
+Package babel Info: Making : an active character on input line 421.
+Package babel Info: Making ; an active character on input line 422.
+Package babel Info: Making ! an active character on input line 423.
+Package babel Info: Making ? an active character on input line 424.
+\FBguill@level=\count283
+\FBold@everypar=\toks17
+\FB@Mht=\dimen148
+\mc@charclass=\count284
+\mc@charfam=\count285
+\mc@charslot=\count286
+\std@mcc=\count287
+\dec@mcc=\count288
+\FB@parskip=\dimen149
+\listindentFB=\dimen150
+\descindentFB=\dimen151
+\labelindentFB=\dimen152
+\labelwidthFB=\dimen153
+\leftmarginFB=\dimen154
+\parindentFFN=\dimen155
+\FBfnindent=\dimen156
+)))
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/carlisle\sca
+lefnt.sty)
+(C:/Program Files/localtexmf\tex/latex/automultiplechoice\automultiplechoice.st
+y
+Package: automultiplechoice 
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/base\inputen
+c.sty
+Package: inputenc 2024/02/08 v1.3d Input encoding file
+\inpenc@prehook=\toks18
+\inpenc@posthook=\toks19
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolo
+r.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg
+\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def
+\pdftex.def
+File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mat
+hcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fan
+cyhdr.sty
+Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
+
+\f@nch@headwidth=\skip51
+\f@nch@offset@elh=\skip52
+\f@nch@offset@erh=\skip53
+\f@nch@offset@olh=\skip54
+\f@nch@offset@orh=\skip55
+\f@nch@offset@elf=\skip56
+\f@nch@offset@erf=\skip57
+\f@nch@offset@olf=\skip58
+\f@nch@offset@orf=\skip59
+\f@nch@height=\skip60
+\f@nch@footalignment=\skip61
+\f@nch@widthL=\skip62
+\f@nch@widthC=\skip63
+\f@nch@widthR=\skip64
+\@temptokenb=\toks20
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/bophook\boph
+ook.sty
+Package: bophook 2001/03/29 v0.02 beginning-of-page hook, K. Tinnefeld
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkey
+val.sty
+Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xk
+eyval.tex
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xk
+vutils.tex
+\XKV@toks=\toks21
+\XKV@tempa@toks=\toks22
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\ke
+yval.tex))
+\XKV@depth=\count289
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics\rot
+ating.sty
+Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics\gra
+phicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics\gra
+phics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics\tri
+g.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg
+\graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 106.
+)
+\Gin@req@height=\dimen157
+\Gin@req@width=\dimen158
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.
+sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+)
+\c@r@tfl@t=\count290
+\rotFPtop=\skip65
+\rotFPbot=\skip66
+\rot@float@box=\box53
+\rot@mess@toks=\toks23
+)
+\AMC@logfile=\write3
+\openout3 = `essai.amc'.
+
+\AMCload@counter=\count291
+\AMCid@quest=\count292
+\AMCid@check=\count293
+\AMCid@etud=\count294
+\AMCid@etudstart=\count295
+\AMCid@etudfin=\count296
+\AMCnum@copies=\count297
+\AMCformVSpace=\dimen159
+\AMCformHSpace=\dimen160
+\AMCinterIrep=\dimen161
+\AMCinterBrep=\dimen162
+\AMCinterIquest=\dimen163
+\AMCinterBquest=\dimen164
+\AMCids@width=\dimen165
+\AMCids@height=\dimen166
+\AMC@SR=\count298
+\AMC@SR@count=\count299
+\AMC@SRnum=\count300
+\AMC@sti=\count301
+\AMCsw@p@=\toks24
+\AMC@numerotation=\count302
+\AMC@XYspecial=\write4
+\AMC@tmpXY=\write5
+\c@AMC@ncase=\count303
+\AMC@boxedrule=\skip67
+\AMC@boxeddown=\skip68
+\AMC@boxedwidth=\skip69
+\AMC@boxedheight=\skip70
+\AMC@oval@radius=\skip71
+\AMC@CBtaille=\skip72
+\AMCbin@sequence=\toks25
+\AMCbin@number=\count304
+\AMCbin@ndigits=\count305
+\AMCbin@id=\count306
+\AMCbin@digit=\count307
+\AMCtok@k=\count308
+\AMCtok@max=\count309
+\AMCtok@ik=\count310
+\AMCrep@count=\count311
+\reponse@cxcix=\toks26
+\reponse@cxcviii=\toks27
+\reponse@cxcvii=\toks28
+\reponse@cxcvi=\toks29
+\reponse@cxcv=\toks30
+\reponse@cxciv=\toks31
+\reponse@cxciii=\toks32
+\reponse@cxcii=\toks33
+\reponse@cxci=\toks34
+\reponse@cxc=\toks35
+\reponse@clxxxix=\toks36
+\reponse@clxxxviii=\toks37
+\reponse@clxxxvii=\toks38
+\reponse@clxxxvi=\toks39
+\reponse@clxxxv=\toks40
+\reponse@clxxxiv=\toks41
+\reponse@clxxxiii=\toks42
+\reponse@clxxxii=\toks43
+\reponse@clxxxi=\toks44
+\reponse@clxxx=\toks45
+\reponse@clxxix=\toks46
+\reponse@clxxviii=\toks47
+\reponse@clxxvii=\toks48
+\reponse@clxxvi=\toks49
+\reponse@clxxv=\toks50
+\reponse@clxxiv=\toks51
+\reponse@clxxiii=\toks52
+\reponse@clxxii=\toks53
+\reponse@clxxi=\toks54
+\reponse@clxx=\toks55
+\reponse@clxix=\toks56
+\reponse@clxviii=\toks57
+\reponse@clxvii=\toks58
+\reponse@clxvi=\toks59
+\reponse@clxv=\toks60
+\reponse@clxiv=\toks61
+\reponse@clxiii=\toks62
+\reponse@clxii=\toks63
+\reponse@clxi=\toks64
+\reponse@clx=\toks65
+\reponse@clix=\toks66
+\reponse@clviii=\toks67
+\reponse@clvii=\toks68
+\reponse@clvi=\toks69
+\reponse@clv=\toks70
+\reponse@cliv=\toks71
+\reponse@cliii=\toks72
+\reponse@clii=\toks73
+\reponse@cli=\toks74
+\reponse@cl=\toks75
+\reponse@cxlix=\toks76
+\reponse@cxlviii=\toks77
+\reponse@cxlvii=\toks78
+\reponse@cxlvi=\toks79
+\reponse@cxlv=\toks80
+\reponse@cxliv=\toks81
+\reponse@cxliii=\toks82
+\reponse@cxlii=\toks83
+\reponse@cxli=\toks84
+\reponse@cxl=\toks85
+\reponse@cxxxix=\toks86
+\reponse@cxxxviii=\toks87
+\reponse@cxxxvii=\toks88
+\reponse@cxxxvi=\toks89
+\reponse@cxxxv=\toks90
+\reponse@cxxxiv=\toks91
+\reponse@cxxxiii=\toks92
+\reponse@cxxxii=\toks93
+\reponse@cxxxi=\toks94
+\reponse@cxxx=\toks95
+\reponse@cxxix=\toks96
+\reponse@cxxviii=\toks97
+\reponse@cxxvii=\toks98
+\reponse@cxxvi=\toks99
+\reponse@cxxv=\toks100
+\reponse@cxxiv=\toks101
+\reponse@cxxiii=\toks102
+\reponse@cxxii=\toks103
+\reponse@cxxi=\toks104
+\reponse@cxx=\toks105
+\reponse@cxix=\toks106
+\reponse@cxviii=\toks107
+\reponse@cxvii=\toks108
+\reponse@cxvi=\toks109
+\reponse@cxv=\toks110
+\reponse@cxiv=\toks111
+\reponse@cxiii=\toks112
+\reponse@cxii=\toks113
+\reponse@cxi=\toks114
+\reponse@cx=\toks115
+\reponse@cix=\toks116
+\reponse@cviii=\toks117
+\reponse@cvii=\toks118
+\reponse@cvi=\toks119
+\reponse@cv=\toks120
+\reponse@civ=\toks121
+\reponse@ciii=\toks122
+\reponse@cii=\toks123
+\reponse@ci=\toks124
+\reponse@c=\toks125
+\reponse@xcix=\toks126
+\reponse@xcviii=\toks127
+\reponse@xcvii=\toks128
+\reponse@xcvi=\toks129
+\reponse@xcv=\toks130
+\reponse@xciv=\toks131
+\reponse@xciii=\toks132
+\reponse@xcii=\toks133
+\reponse@xci=\toks134
+\reponse@xc=\toks135
+\reponse@lxxxix=\toks136
+\reponse@lxxxviii=\toks137
+\reponse@lxxxvii=\toks138
+\reponse@lxxxvi=\toks139
+\reponse@lxxxv=\toks140
+\reponse@lxxxiv=\toks141
+\reponse@lxxxiii=\toks142
+\reponse@lxxxii=\toks143
+\reponse@lxxxi=\toks144
+\reponse@lxxx=\toks145
+\reponse@lxxix=\toks146
+\reponse@lxxviii=\toks147
+\reponse@lxxvii=\toks148
+\reponse@lxxvi=\toks149
+\reponse@lxxv=\toks150
+\reponse@lxxiv=\toks151
+\reponse@lxxiii=\toks152
+\reponse@lxxii=\toks153
+\reponse@lxxi=\toks154
+\reponse@lxx=\toks155
+\reponse@lxix=\toks156
+\reponse@lxviii=\toks157
+\reponse@lxvii=\toks158
+\reponse@lxvi=\toks159
+\reponse@lxv=\toks160
+\reponse@lxiv=\toks161
+\reponse@lxiii=\toks162
+\reponse@lxii=\toks163
+\reponse@lxi=\toks164
+\reponse@lx=\toks165
+\reponse@lix=\toks166
+\reponse@lviii=\toks167
+\reponse@lvii=\toks168
+\reponse@lvi=\toks169
+\reponse@lv=\toks170
+\reponse@liv=\toks171
+\reponse@liii=\toks172
+\reponse@lii=\toks173
+\reponse@li=\toks174
+\reponse@l=\toks175
+\reponse@xlix=\toks176
+\reponse@xlviii=\toks177
+\reponse@xlvii=\toks178
+\reponse@xlvi=\toks179
+\reponse@xlv=\toks180
+\reponse@xliv=\toks181
+\reponse@xliii=\toks182
+\reponse@xlii=\toks183
+\reponse@xli=\toks184
+\reponse@xl=\toks185
+\reponse@xxxix=\toks186
+\reponse@xxxviii=\toks187
+\reponse@xxxvii=\toks188
+\reponse@xxxvi=\toks189
+\reponse@xxxv=\toks190
+\reponse@xxxiv=\toks191
+\reponse@xxxiii=\toks192
+\reponse@xxxii=\toks193
+\reponse@xxxi=\toks194
+\reponse@xxx=\toks195
+\reponse@xxix=\toks196
+\reponse@xxviii=\toks197
+\reponse@xxvii=\toks198
+\reponse@xxvi=\toks199
+\reponse@xxv=\toks200
+\reponse@xxiv=\toks201
+\reponse@xxiii=\toks202
+\reponse@xxii=\toks203
+\reponse@xxi=\toks204
+\reponse@xx=\toks205
+\reponse@xix=\toks206
+\reponse@xviii=\toks207
+\reponse@xvii=\toks208
+\reponse@xvi=\toks209
+\reponse@xv=\toks210
+\reponse@xiv=\toks211
+\reponse@xiii=\toks212
+\reponse@xii=\toks213
+\reponse@xi=\toks214
+\reponse@x=\toks215
+\reponse@ix=\toks216
+\reponse@viii=\toks217
+\reponse@vii=\toks218
+\reponse@vi=\toks219
+\reponse@v=\toks220
+\reponse@iv=\toks221
+\reponse@iii=\toks222
+\reponse@ii=\toks223
+\reponse@i=\toks224
+\AMCnum@questions=\count312
+\AMCrep@@count=\count313
+\c@AMCquestionaff=\count314
+\ouverte@vs=\dimen167
+\AMC@chiffres=\count315
+\AMCcodeHspace=\dimen168
+\AMCcodeVspace=\dimen169
+\AMCcodeBoxSep=\dimen170
+\AMCnumeric@Hspace=\dimen171
+\AMCnumeric@Vspace=\dimen172
+\AMC@numeric@lastdigit=\count316
+\AMC@integer@modulo=\count317
+\AMC@numeric@integer=\count318
+\AMC@numeric@calcdigit=\count319
+\AMC@numeric@digits=\count320
+\AMC@numeric@decd=\count321
+\AMC@numeric@value=\count322
+\AMC@numeric@x=\count323
+\AMC@numeric@base=\count324
+\AMC@numeric@exact=\count325
+\AMC@numeric@approx=\count326
+\AMCopen@Hspace=\dimen173
+\AMCopen@LineHeight=\dimen174
+\AMCopen@Lines=\count327
+\AMCopen@boxmargin=\dimen175
+\AMCopen@boxframerule=\dimen176
+\AMCopen@framerule=\dimen177
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/environ\envi
+ron.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/trimspaces\t
+rimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+)
+\@envbody=\toks225
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/etex-pkg\ete
+x.sty
+Package: etex 2016/08/01 v2.7 eTeX basic definition package (PEB,DPC)
+
+
+Package etex Warning: Extended allocation already in use.
+(etex)                etex.sty code will not be used.
+(etex)                To force etex package to load, add
+(etex)                \RequirePackage{etex}
+(etex)                at the start of the document.
+
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geo
+metry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvt
+ex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifte
+x.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+))
+\Gm@cnth=\count328
+\Gm@cntv=\count329
+\c@Gm@tempcnt=\count330
+\Gm@bindingoffset=\dimen178
+\Gm@wd@mp=\dimen179
+\Gm@odd@mp=\dimen180
+\Gm@even@mp=\dimen181
+\Gm@layoutwidth=\dimen182
+\Gm@layoutheight=\dimen183
+\Gm@layouthoffset=\dimen184
+\Gm@layoutvoffset=\dimen185
+\Gm@dimlist=\toks226
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geo
+metry.cfg)))
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3
+backend-pdftex.def
+File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count331
+) (essai.aux)
+\openout1 = `essai.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+Package babel Info: 'french' activates 'french' shorthands.
+(babel)             Reported  on input line 5.
+LaTeX Info: Redefining \degres on input line 5.
+LaTeX Info: Redefining \up on input line 5.
+
+
+Package french.ldf Warning: OT1 encoding should not be used for French.
+(french.ldf)                Add \usepackage[T1]{fontenc} to the preamble
+(french.ldf)                of your document; reported on input line 5.
+
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\
+supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count332
+\scratchdimen=\dimen186
+\scratchbox=\box54
+\nofMPsegments=\count333
+\nofMParguments=\count334
+\everyMPshowfont=\toks227
+\MPscratchCnt=\count335
+\MPscratchDim=\dimen187
+\MPnumerator=\count336
+\makeMPintoPDFobject=\count337
+\everyMPtoPDFconversion=\toks228
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg
+\epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\eps
+topdf-sys.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(85.35826pt, 426.79135pt, 85.35826pt)
+* v-part:(T,H,B)=(99.58464pt, 674.33032pt, 71.13188pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=426.79135pt
+* \textheight=674.33032pt
+* \oddsidemargin=13.08827pt
+* \evensidemargin=13.08827pt
+* \topmargin=-38.12675pt
+* \headheight=56.9055pt
+* \headsep=8.5359pt
+* \topskip=10.0pt
+* \footskip=28.45274pt
+* \marginparwidth=57.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+! Undefined control sequence.
+\iterate ...he \AMCid@etud ]
+}\fi  \par \AMCtitle 
+                                                  {QCM Test} \par \input {ba...
+l.15 }
+      
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+(base_donnée.tex
+\math@k=\count338
+\math@i=\toks229
+)
+! Undefined control sequence.
+\iterate ...ut {base_donnée.tex} \par \AMCrandom 
+                                                  {math}{2} \par \clearpage ...
+l.15 }
+      
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 15.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 15.
+[1{C:/Users/Grèzes-Molénat/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}
+
+] (essai.aux)
+ ***********
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-04-29>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 5971 strings out of 469923
+ 104493 string characters out of 5463847
+ 516206 words of memory out of 5000000
+ 32747 multiletter control sequences out of 15000+600000
+ 627292 words of font info for 42 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 87i,23n,93p,273b,536s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/Grèzes-Molénat/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmr10.pfb><C:/Users/Grèzes-Molénat/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Grèzes-Molénat/AppData/Loca
+l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Grèzes-M
+olénat/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/latxfont/lcir
+cle1.pfb>
+Output written on essai.pdf (1 page, 39576 bytes).
+PDF statistics:
+ 26 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
