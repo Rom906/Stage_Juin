@@ -30,21 +30,22 @@ def generation_pdf(fichier_latex):
      return pdf
 
 
-def ajouter(nombre):
+# Base de donnée
 
-# def compiler_amc(nom_fichier_tex: str):
-#     prefix = os.path.splitext(nom_fichier_tex)[0]
-#     try:
-#         subprocess.run([
-#             "auto-multiple-choice", "prepare",
-#             "--mode", "s",
-#             "--prefix", ".",
-#             nom_fichier_tex
-#         ], check=True)
+def ajoute_qcm(numero_question: str, question: str,
+    liste_choix:list, indices_bonnes_reponses:list):
+    latex = "\\element{math}{\n"
+    latex += "\\begin{question}{" + str(numero_question) + "} " + question + "\n"
+    latex += "\\begin{choices}\n"
 
-#         subprocess.run([
-#             "auto-multiple-choice", "meptex",
-#             "--src", nom_fichier_tex,
-#             "--out", f"{prefix}-sujet.pdf",
-#             "--prefix", "."
-#         ], check=True)
+    for i in range(len(liste_choix)):
+        if i in indices_bonnes_reponses:
+            latex += "  \\correctchoice " + liste_choix[i] + "\n"
+        else:
+            latex += "  \\choice " + liste_choix[i] + "\n"
+
+    latex += "\\end{choices}\n"
+    latex += "\\end{question}\n"
+    latex += "}\n"
+
+    return latex
