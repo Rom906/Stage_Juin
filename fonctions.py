@@ -1,5 +1,5 @@
 import subprocess
-import os
+
 
 def generer_debut_latex_amc(titre):
     debut = r"""\documentclass[a4paper]{article}
@@ -32,20 +32,21 @@ def generation_pdf(fichier_latex):
 
 # Base de donnée
 
-def ajoute_qcm(numero_question: str, question: str,
-    liste_choix:list, indices_bonnes_reponses:list):
-    latex = "\\element{math}{\n"
-    latex += "\\begin{question}{" + str(numero_question) + "} " + question + "\n"
-    latex += "\\begin{choices}\n"
+def ajoute_qcm(numero_question: str, question: str, liste_choix: list,
+               indices_bonnes_reponses: list):
+    latex = rf"""\element{{math}}{{
+\begin{{question}}{{{numero_question}}} {question}
+\begin{{choices}}
+"""
 
     for i in range(len(liste_choix)):
         if i in indices_bonnes_reponses:
-            latex += "  \\correctchoice " + liste_choix[i] + "\n"
+            latex += rf"  \correctchoice {liste_choix[i]}\n"
         else:
-            latex += "  \\choice " + liste_choix[i] + "\n"
+            latex += rf"  \choice {liste_choix[i]}\n"
 
-    latex += "\\end{choices}\n"
-    latex += "\\end{question}\n"
-    latex += "}\n"
-
+    latex += r"""\end{choices}
+\end{question}
+}
+"""
     return latex
