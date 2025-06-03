@@ -1,25 +1,27 @@
 import subprocess
 
 
-def generer_debut_latex(titre):
-    debut = r"""
-        \documentclass[12pt]{{article}}
-        \usepackage[utf8]{{inputenc}}
-        \usepackage[T1]{{fontenc}}
-        \usepackage[french]{{babel}}
-        \usepackage{{enumitem}}
-        \usepackage{{pifont}}
+def generer_debut_latex_amc(titre):
+    debut = r"""\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{automultiplechoice}
 
-        \begin{{document}}
-        \section*{{{}}}
-        """.format(titre)
+\begin{document}
+\onecopy{1}{
+\AMCtitle{%s}
+""" % titre
     return debut
 
 
-# def combiner():
+def combiner(fichier1, fichier2):
+    return fichier1 + fichier2
+
+
 def ecrire_latex(fichier_texte, titre):
     with open(titre, "w", encoding="utf-8") as fichier:
-        fichier.write(fichier_texte)
+        fichier.write(fichier_texte + r"""\end{document}""")
     return titre
 
 
