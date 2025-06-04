@@ -155,7 +155,7 @@ def generate_exam(nombre_question: int, theme: str):
         else:
             if base[theme[hasard]] in Liste:
                 while base[theme[hasard]] in Liste:
-                    hasard = random.randint(0, compteur)
+                    hasard = random.randint(0, compteur) # Volonté de classer ensuite les questions par difficultées et de pouvoir faire des questions ouvertes
             else:
                 Liste.append(base[theme[hasard]])
     random.shuffle(Liste)
