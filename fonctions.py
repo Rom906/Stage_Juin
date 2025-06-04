@@ -32,9 +32,10 @@ def generation_pdf(fichier_latex):
 
 # Base de donnée
 
-def ajoute_qcm(numero_question: str, question: str, liste_choix: list,
-               indices_bonnes_reponses: list):
-    latex = rf"""\element{{math}}{{
+def ajoute_qcm(numero_question: int, question: str, liste_choix: list,
+               indices_bonnes_reponses: list, theme: str, base="base_donnée.tex"):
+    numero_question = str(numero_question)
+    latex = rf"""\element{{{theme}}}{{
 \begin{{question}}{{{numero_question}}} {question}
 \begin{{choices}}
 """
@@ -43,10 +44,23 @@ def ajoute_qcm(numero_question: str, question: str, liste_choix: list,
         if i in indices_bonnes_reponses:
             latex += rf"  \correctchoice {liste_choix[i]}\n"
         else:
-            latex += rf"  \choice {liste_choix[i]}\n"
-
+            latex += rf"  \wrongchoice {liste_choix[i]}\n"
     latex += r"""\end{choices}
 \end{question}
 }
 """
-    return latex
+    with open(base, "w", encoding="utf-8") as fichier:
+        fichier.write(latex)
+    return base
+
+
+def ajoute_question_libre(numero_question: int, question: str, espace: int, theme: str, base="base_donée.tex"):
+    numero_question = str(numero_question)
+    latex = rf"""\element{{{theme}}}{{
+    \begin{{question}}{{{numero_question}}}{question}
+\begin{{choices}}"""
+    latex += rf"""\vspace{{{espace + "cm"}}}""" # rajouter un cadre à proportionner en fonction de l'espace voulu par l'utilisateur
+    with open(base, "w", encoding="utf-8") as fichier:
+        fichier.write(latex)
+    return base
+
