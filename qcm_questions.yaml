@@ -1,4 +1,4 @@
-questions:
+POO:
   - id: q01
     section: "" # si il y a des explications avant la question!
     difficulte: "1"
@@ -25,6 +25,7 @@ questions:
       - texte: "un {\em design patern}"
         correct: False
 
+Info:
   - id: q03
     section: ""
     difficulte: "1"
