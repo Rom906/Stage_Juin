@@ -1,7 +1,7 @@
 import yaml
 import subprocess
 import random
-import shuffle
+
 
 def question_to_latex(q):
     latex = "\\section{" + q.get("section", "") + "}\n"
@@ -144,23 +144,25 @@ def generate_exam(nombre_question: int, theme: str):
     latex_code = ""
     compteur = 0
     for question in base[theme]:
-        compteur +=1
+        compteur += 1
 
+    Liste = []
     for _ in range(compteur):
-        Liste = []
-        hasard = random.randint(0, compteur)
+        hasard = random.randrange(0, compteur)
         if compteur < nombre_question:
             for i in range(compteur):
-                Liste.append(base[theme[i]])
+                Liste.append(base[theme][i])
+            break
         else:
-            if base[theme[hasard]] in Liste:
-                while base[theme[hasard]] in Liste:
-                    hasard = random.randint(0, compteur) # Volonté de classer ensuite les questions par difficultées et de pouvoir faire des questions ouvertes
-            else:
-                Liste.append(base[theme[hasard]])
+            while base[theme][hasard] in Liste:
+                hasard = random.randrange(0, compteur) # Volonté de trier ensuite les questions par difficulté et aussi de pouvoir incorporer des questions libres
+            Liste.append(base[theme][hasard])
+
     random.shuffle(Liste)
-    for i in range(len(Liste)):
+
+    for question in Liste:
         latex_code += question_to_latex(question) + "\n"
+
     ecrire_latex(latex_code, "prime.tex")
     final = generation_pdf("prime.tex")
     return final
