@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.6.3)  4 JUN 2025 17:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.6.3)  4 JUN 2025 19:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -228,24 +228,23 @@ File: upsy.fd 2001/06/04 font definitions for U/psy.
 backend-pdftex.def
 File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count292
-)
-No file prime.aux.
+) (prime.aux)
 \openout1 = `prime.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 61.
-LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
 
 (C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\
 supp-pdf.mkii
@@ -309,15 +308,25 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ! Missing } inserted.
 <inserted text> 
                 }
-l.64 ...lf|) dans une méthode codée en python ?}
+l.67 ...lf|) dans une méthode codée en python ?}
                                                   
-? 
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
 ! Extra }, or forgotten \endgroup.
 \verb@egroup ...erb@balance@group \@empty \egroup 
                                                   
-l.64 ...lf|) dans une méthode codée en python ?}
+l.67 ...lf|) dans une méthode codée en python ?}
                                                   
-? 
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
 
 ! LaTeX Error: \verb illegal in argument.
 
@@ -325,29 +334,25 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.64 ...lf|) dans une méthode codée en python ?}
+l.67 ...lf|) dans une méthode codée en python ?}
                                                   
-? 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 64.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 67.
 
 
 (C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\ums
 a.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 64.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 67.
 
 
 (C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\ums
 b.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Missing character: There is no ^^A in font pzdr!
-Missing character: There is no ^^B in font pzdr!
-Missing character: There is no ^^C in font pzdr!
-Missing character: There is no ^^D in font pzdr!
-Missing character: There is no ^^E in font pzdr!
-Missing character: There is no ^^F in font pzdr!
 
 ! LaTeX Error: Unicode character ^^[ (U+001B)
                not set up for use with LaTeX.
@@ -356,12 +361,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.79 }
+l.83 }
       
-? 
-Missing character: There is no ^^G in font pzdr!
-Missing character: There is no ^^H in font pzdr!
-Missing character: There is no 	 in font pzdr!
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
 
 
 [1
@@ -374,10 +378,10 @@ L3 programming layer <2025-04-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3921 strings out of 469923
- 61392 string characters out of 5463847
- 453227 words of memory out of 5000000
- 30703 multiletter control sequences out of 15000+600000
+ 3924 strings out of 469923
+ 61483 string characters out of 5463847
+ 453239 words of memory out of 5000000
+ 30704 multiletter control sequences out of 15000+600000
  632935 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,6n,65p,232b,215s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -386,7 +390,7 @@ msfonts/cm/cmbx12.pfb><C:/Users/Grèzes-Molénat/AppData/Local/Programs/MiKTeX/
 fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Grèzes-Molénat/AppData/Loc
 al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/Grèzes-
 Molénat/AppData/Local/Programs/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on prime.pdf (1 page, 36007 bytes).
+Output written on prime.pdf (1 page, 38411 bytes).
 PDF statistics:
  26 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

@@ -5,7 +5,7 @@ import subprocess
 def question_to_latex(q):
     latex = "\\section{" + q.get("section", "") + "}\n"
     latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
-    latex += "\\enonce{" + q["enonce"] + "}\n"
+    latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
     latex += "\\possibilites{\n"
     for choix in q["choix"]:
         if choix["correct"]:

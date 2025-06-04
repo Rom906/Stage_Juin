@@ -49,18 +49,21 @@
   \ifthenelse{#1 > 3}{S}{}%
 }
 
-\newcommand{\possibilites}[1]{%
+\newcommand{\possibilites}[1]{
+  \setcounter{possibility}{171} 
   \vspace*{\baselineskip}
   \begin{itemize}[label={}]
     #1
   \end{itemize}
 }
 
+
 \newcommand{\pourquoi}[1]{}
 
 \begin{document}
 \section{}
 \difficulte{1}
+
 \enonce{Que représente le premier paramètre (souvent appelé \verb|self|) dans une méthode codée en python ?}
 \possibilites{
     \leurre la classe à laquelle la méthode appartient
@@ -71,6 +74,7 @@
 
 \section{}
 \difficulte{1}
+
 \enonce{Je permets à un objet d'être différent d'un autre objet de la même classe. Je suis~:}
 \possibilites{
     \correct un attribut
@@ -81,6 +85,7 @@
 
 \section{}
 \difficulte{1}
+
 \enonce{Qui est le plus important entre le main, les tests et les fonctions?}
 \possibilites{
     \correct Le main
