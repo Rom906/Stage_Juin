@@ -1,0 +1,420 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.6.3)  4 JUN 2025 16:50
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{enumitem,amssymb}
+\usepackage{tabularx}
+\usepackage{calc}
+\usepackage{cprotect}
+\usepackage{xcolor}
+\usepackage[a4paper,textwidth=16cm,top=2cm,bottom=2cm,headheight=25pt,headsep=1
+2pt,footskip=25pt]{geometry}
+\usepackage{fancybox}
+\newenvironment{framed}%
+  {\begin{Sbox}\begin{minipage}{\dimexpr\linewidth-2\fboxrule-2\fboxsep}}%
+  {\end{minipage}\end{Sbox}\fbox{\TheSbox}}
+
+\usepackage{pifont}
+\usepackage{ifthen}
+
+\newcommand{\corrige}{0}
+\newcounter{possibility}
+
+\newcommand{\correct}{%
+  \addtocounter{possibility}{1}
+  \ifthenelse{\equal{\corrige}{0}}%
+    {\item[\ding{\the\numexpr\value{possibility}}]}%
+    {\item[\textcolor{red}{\ding{\the\numexpr\value{possibility}-10}}]}%
+}
+
+\newcommand{\leurre}{%
+  \addtocounter{possibility}{1}
+  \item[\ding{\the\numexpr\value{possibility}}]%
+}
+
+\newcommand{\enonce}[1]{%
+  \noindent
+  Question~:
+  \vspace*{.5\baselineskip}
+
+  \noindent
+  \begin{framed}
+    #1
+  \end{framed}
+}
+
+\newcommand{\difficulte}[1]{%
+  Difficulté : 
+  \ifthenelse{#1 > 1 \or #1 = 1}{\ding{72}}{\ding{73}} 
+  \ifthenelse{#1 > 2 \or #1 = 2}{\ding{72}}{\ding{73}}
+  \ifthenelse{#1 > 3 \or #1 = 3}{\ding{72}}{\ding{73}}
+  \ifthenelse{#1 > 3}{S}{}%
+}
+
+\newcommand{\possibilites}[1]{%
+  \vspace*{\baselineskip}
+  \begin{itemize}[label={}]
+    #1
+  \end{itemize}
+}
+
+\begin{document}
+\vbox{
+    \section{}
+    \difficulte{1}
+    \enonce{Que représente le premier paramètre (souvent appelé \verb|self|)
+ dans une méthode codée en python ?}
+    \possibilites{
+        \leurre la classe à laquelle la méthode appartient
+        \correct l'objet qui a appelé la méthode
+        \leurre c'est un paramètre comme un autre sans signification particuli
+ère
+    }
+    \pourquoi{}
+}
+\vbox{
+    \section{}
+    \difficulte{1}
+    \enonce{Je permets à un objet d'être différent d'un autre objet de la m�
+�me classe. Je suis~:}
+    \possibilites{
+        \correct un attribut
+        \leurre une methode
+        \leurre un {^^[m design patern}
+    }
+    \pourquoi{}
+}
+\vbox{
+    \section{}
+    \difficulte{1}
+    \enonce{Qui est le plus important entre le main, les tests et les fonctions
+?}
+    \possibilites{
+        \correct Le main
+        \correct Les tests
+        \correct Les fonctions
+    }
+    \pourquoi{}
+}
+\end{document}
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/base\article
+.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.
+clo
+File: size12.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count272
+\c@section=\count273
+\c@subsection=\count274
+\c@subsubsection=\count275
+\c@paragraph=\count276
+\c@subparagraph=\count277
+\c@figure=\count278
+\c@table=\count279
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen146
+)
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> \documentclass[12pt]{article}
+
+                                  \usepackage[utf8]{inputenc}
+\usepackage{gr...
+? 
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/base\inputen
+c.sty
+Package: inputenc 2024/02/08 v1.3d Input encoding file
+\inpenc@prehook=\toks17
+\inpenc@posthook=\toks18
+)
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> ...12pt]{article}
+\usepackage[utf8]{inputenc}
+
+                                                  \usepackage{graphicx}
+\use...
+? 
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics\gra
+phicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics\key
+val.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks19
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics\gra
+phics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics\tri
+g.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg
+\graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 106.
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def
+\pdftex.def
+File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen147
+\Gin@req@width=\dimen148
+)
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> ...kage[utf8]{inputenc}
+\usepackage{graphicx}
+
+                                                  \usepackage{enumitem,amssy...
+
+? 
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enu
+mitem.sty
+Package: enumitem 2025/02/06 v3.11 Customized lists
+\labelindent=\skip51
+\enit@outerparindent=\dimen149
+\enit@toks=\toks20
+\enit@inbox=\box53
+\enit@count@id=\count280
+\enitdp@description=\count281
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\ams
+symb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\ams
+fonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks21
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> ...ge{graphicx}
+\usepackage{enumitem,amssymb}
+
+                                                  \usepackage{tabularx}
+\use...
+? 
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabula
+rx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.
+sty
+Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
+\col@sep=\dimen150
+\ar@mcellbox=\box54
+\extrarowheight=\dimen151
+\NC@list=\toks22
+\extratabsurround=\skip52
+\backup@length=\skip53
+\ar@cellbox=\box55
+)
+\TX@col@width=\dimen152
+\TX@old@table=\dimen153
+\TX@old@col=\dimen154
+\TX@target=\dimen155
+\TX@delta=\dimen156
+\TX@cols=\count282
+\TX@ftn=\toks23
+)
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> ...ge{enumitem,amssymb}
+\usepackage{tabularx}
+
+                                                  \usepackage{calc}
+\usepack...
+? 
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.s
+ty
+Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count283
+\calc@Bcount=\count284
+\calc@Adimen=\dimen157
+\calc@Bdimen=\dimen158
+\calc@Askip=\skip54
+\calc@Bskip=\skip55
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count285
+\calc@Cskip=\skip56
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/cprotect\cpr
+otect.sty
+Package: cprotect 2011/01/27 v1.0e (Bruno Le Floch)
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.
+sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+)
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/bigfoot\suff
+ix.sty
+Package: suffix 2006/07/15 1.5a Variant command support
+)
+\CPT@WriteOut=\write3
+\c@CPT@WriteCount=\count286
+\c@CPT@numB=\count287
+\CPT@commandatend@toks=\toks24
+)
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> ...x}
+\usepackage{calc}
+\usepackage{cprotect}
+
+                                                  \usepackage{xcolor}
+\usepa...
+? 
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolo
+r.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg
+\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mat
+hcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+)
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> ...
+\usepackage{cprotect}
+\usepackage{xcolor}
+
+                                                  \usepackage[a4paper,textwi...
+
+? 
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geo
+metry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvt
+ex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifte
+x.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+))
+\Gm@cnth=\count288
+\Gm@cntv=\count289
+\c@Gm@tempcnt=\count290
+\Gm@bindingoffset=\dimen159
+\Gm@wd@mp=\dimen160
+\Gm@odd@mp=\dimen161
+\Gm@even@mp=\dimen162
+\Gm@layoutwidth=\dimen163
+\Gm@layoutheight=\dimen164
+\Gm@layouthoffset=\dimen165
+\Gm@layoutvoffset=\dimen166
+\Gm@dimlist=\toks25
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geo
+metry.cfg))
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> ...25pt,headsep=12pt,footskip=25pt]{geometry}
+
+                                                  \usepackage{fancybox}
+\new...
+? 
+
+(C:\Users\Grèzes-Molénat\AppData\Local\Programs\MiKTeX\tex/latex/fancybox\fan
+cybox.sty
+Package: fancybox 2010/05/15 1.4
+
+Style option: `fancybox' v1.4 <2010/05/15> (tvz)
+\@fancybox=\box56
+\shadowsize=\dimen167
+\@Sbox=\box57
+\do@VerbBox=\toks26
+\the@fancyput=\toks27
+\this@fancyput=\toks28
+\EndVerbatimTokens=\toks29
+\Verbatim@Outfile=\write4
+\Verbatim@Infile=\read2
+)
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                      
