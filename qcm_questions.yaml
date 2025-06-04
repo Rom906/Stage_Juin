@@ -1,0 +1,41 @@
+questions:
+  - id: q01
+    section: "" # si il y a des explications avant la question!
+    difficulte: "1"
+    enonce: "Que représente le premier paramètre (souvent appelé \\verb|self|) dans une méthode codée en python ?"
+    simple: False
+    choix:
+      - texte: "la classe à laquelle la méthode appartient"
+        correct: false
+      - texte: "l'objet qui a appelé la méthode"
+        correct: true
+      - texte: "c'est un paramètre comme un autre sans signification particulière"
+        correct: false
+
+  - id: q02
+    section: ""
+    difficulte: "1"
+    enonce: "Je permets à un objet d'être différent d'un autre objet de la même classe. Je suis~:"
+    simple: False
+    choix:
+      - texte: "un attribut"
+        correct: true
+      - texte: "une methode"
+        correct: false
+      - texte: "un {\em design patern}"
+        correct: False
+
+  - id: q03
+    section: ""
+    difficulte: "1"
+    enonce: "Qui est le plus important entre le main, les tests et les fonctions?"
+    simple: False
+    choix:
+      - texte: "Le main"
+        correct:  True
+      - texte: "Les tests"
+        correct: True
+      - texte: "Les fonctions"
+        correct: True
+    
+  
