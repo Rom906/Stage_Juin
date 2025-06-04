@@ -1,24 +1,4 @@
-import yaml
-import subprocess
-
-
-def question_to_latex(q):
-    latex = "\\section{" + q.get("section", "") + "}\n"
-    latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
-    latex += "\\enonce{" + q["enonce"] + "}\n"
-    latex += "\\possibilites{\n"
-    for choix in q["choix"]:
-        if choix["correct"]:
-            latex += "    \\correct " + choix["texte"] + "\n"
-        else:
-            latex += "    \\leurre " + choix["texte"] + "\n"
-    latex += "}\n"
-    latex += "\\pourquoi{}\n"
-    return latex
-
-
-def ecrire_latex(contenu_questions, nom_fichier):
-    preambule = r"""\documentclass[12pt]{article}
+\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{enumitem,amssymb}
@@ -79,26 +59,35 @@ def ecrire_latex(contenu_questions, nom_fichier):
 \newcommand{\pourquoi}[1]{}
 
 \begin{document}
-"""
-    with open(nom_fichier, "w", encoding="utf-8") as fichier:
-        fichier.write(preambule)
-        fichier.write(contenu_questions)
-        fichier.write("\n\\end{document}") # rajoute la fin pour que le compilateur ne plante pas
-    return fichier
+\section{}
+\difficulte{1}
+\enonce{Que représente le premier paramètre (souvent appelé \verb|self|) dans une méthode codée en python ?}
+\possibilites{
+    \leurre la classe à laquelle la méthode appartient
+    \correct l'objet qui a appelé la méthode
+    \leurre c'est un paramètre comme un autre sans signification particulière
+}
+\pourquoi{}
+
+\section{}
+\difficulte{1}
+\enonce{Je permets à un objet d'être différent d'un autre objet de la même classe. Je suis~:}
+\possibilites{
+    \correct un attribut
+    \leurre une methode
+    \leurre un {m design patern}
+}
+\pourquoi{}
+
+\section{}
+\difficulte{1}
+\enonce{Qui est le plus important entre le main, les tests et les fonctions?}
+\possibilites{
+    \correct Le main
+    \correct Les tests
+    \correct Les fonctions
+}
+\pourquoi{}
 
 
-def generation_pdf(nom_fichier):
-    pdf = subprocess.run(["pdflatex", nom_fichier])
-    return pdf
-
-
-with open("qcm_questions.yaml", "r", encoding="utf-8") as fichier:
-    base = yaml.safe_load(fichier)
-
-latex_code = ""
-for question in base["questions"]:
-    latex_code += question_to_latex(question) + "\n"
-
-ecrire_latex(latex_code, "prime.tex")
-
-generation_pdf("prime.tex")
+\end{document}
