@@ -32,7 +32,7 @@ def question_to_latex(q):
     return latex
 
 
-def ecrire_latex(contenu_questions, nom_fichier):
+def ecrire_latex(contenu_questions, nom_fichier, date: str):
     preambule = r"""\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -102,8 +102,10 @@ def ecrire_latex(contenu_questions, nom_fichier):
 
     {\bf {\Large Modélisation et Conception Objet}}\\%\vspace{0.2cm}
     \\
-    {\bf  { Contrôle 1A }}\\
-    {\footnotesize 27/06/2107}\\
+    {\bf  { Contrôle 1A }}\\"""
+    preambule2 = r"""
+    {{\footnotesize {}}}\\""".format(date)
+    preambule3 =r"""
     \hline
   \end{tabular}
 \end{center}
@@ -139,6 +141,7 @@ Barème. Pour chaque question :
 \end{itemize}
 \newpage
 """
+    preambule = preambule + preambule2 + preambule3
     with open(nom_fichier, "w", encoding="utf-8") as fichier:
         fichier.write(preambule)
         fichier.write(contenu_questions)
@@ -151,7 +154,7 @@ def generation_pdf(nom_fichier):
     return pdf
 
 
-def generate_exam(nombre_question: int, theme: str, nom_fichier: str):
+def generate_exam(nombre_question: int, theme: str, nom_fichier: str, date: str):
     with open("qcm_questions.yaml", "r", encoding="utf-8") as fichier:
         base = yaml.safe_load(fichier)
 
@@ -169,7 +172,7 @@ def generate_exam(nombre_question: int, theme: str, nom_fichier: str):
             break
         else:
             while base[theme][hasard] in Liste:
-                hasard = random.randrange(0, compteur) # Volonté de trier ensuite les questions par difficulté et aussi de pouvoir incorporer des questions libres
+                hasard = random.randrange(0, compteur) # Volonté de trier ensuite les questions par difficulté
             Liste.append(base[theme][hasard])
 
     random.shuffle(Liste)
@@ -177,6 +180,6 @@ def generate_exam(nombre_question: int, theme: str, nom_fichier: str):
     for question in Liste:
         latex_code += question_to_latex(question) + "\n"
 
-    ecrire_latex(latex_code, nom_fichier)
+    ecrire_latex(latex_code, nom_fichier, date)
     final = generation_pdf(nom_fichier)
     return final
