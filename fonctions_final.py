@@ -5,13 +5,17 @@ import random
 
 def question_to_latex(q):
     latex = ""
-    if q["libre"] is False:
+    if not q["libre"]:
         latex = "\\section{" + q.get("section", "") + "}\n"
         latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
         latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
         latex += "\\setcounter{possibility}{0}\n"
         latex += "\\possibilites{\n"
-        for choix in q["choix"]:
+
+        choix_mélangés = list(q["choix"])
+        random.shuffle(choix_mélangés)
+
+        for choix in choix_mélangés:
             if choix["correct"]:
                 latex += "    \\correct " + choix["texte"] + "\n"
             else:
