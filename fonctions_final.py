@@ -57,13 +57,13 @@ def ecrire_latex(contenu_questions, nom_fichier, date: str):
 \newcommand{\correct}{%
   \addtocounter{possibility}{1}
   \ifthenelse{\equal{\corrige}{0}}%
-    {\item[\ding{\the\numexpr\value{possibility}}]}%
-    {\item[\textcolor{red}{\ding{\the\numexpr\value{possibility}-10}}]}%
+    {\item[\ding{\numexpr171+\value{possibility}}]}%
+    {\item[\textcolor{red}{\ding{\numexpr171+\value{possibility}}}]}%
 }
 
 \newcommand{\leurre}{%
   \addtocounter{possibility}{1}
-  \item[\ding{\the\numexpr\value{possibility}}]%
+  \item[\ding{\numexpr171+\value{possibility}}]%
 }
 
 \newcommand{\enonce}[1]{%
@@ -86,11 +86,13 @@ def ecrire_latex(contenu_questions, nom_fichier, date: str):
 }
 
 \newcommand{\possibilites}[1]{%
+  \setcounter{possibility}{0}
   \vspace*{\baselineskip}
   \begin{itemize}[label={}]
     #1
   \end{itemize}
 }
+
 
 \newcommand{\pourquoi}[1]{}
 
