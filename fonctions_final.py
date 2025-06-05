@@ -44,7 +44,7 @@ def question_to_latex(q, correction=False):
 
 
 
-def ecrire_latex(contenu_questions, nom_fichier, date: str):
+def ecrire_latex(contenu_questions, nom_fichier, date: str, correction=False):
     preambule = r"""\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -63,15 +63,24 @@ def ecrire_latex(contenu_questions, nom_fichier, date: str):
 \usepackage{ifthen}
 
 \newcommand{\corrige}{0}
-\newcounter{possibility}
-
-\newcommand{\correct}{%
+\newcounter{possibility}"""
+    if correction:
+        preambule4 = r"""
+    \newcommand{{\correct}}{%
+      \addtocounter{{possibility}}{1}
+      \ifthenelse{\equal{\corrige}{1}}%
+        {\item[\ding{\numexpr171+\value{possibility}}]}%
+        {\item[\textcolor{red}{\ding{\numexpr171+\value{possibility}}}]}%
+    }"""
+    else:
+        preambule4 = r"""\newcommand{\correct}{%
   \addtocounter{possibility}{1}
   \ifthenelse{\equal{\corrige}{0}}%
-    {\item[\ding{\numexpr171+\value{possibility}}]}%
     {\item[\textcolor{red}{\ding{\numexpr171+\value{possibility}}}]}%
+    {\item[\ding{\numexpr171+\value{possibility}}]}%
 }
-
+"""
+    preambule5 = r"""
 \newcommand{\leurre}{%
   \addtocounter{possibility}{1}
   \item[\ding{\numexpr171+\value{possibility}}]%
@@ -157,7 +166,7 @@ Barème. Pour chaque question :
 \end{itemize}
 \newpage
 """
-    preambule = preambule + preambule2 + preambule3
+    preambule = preambule + preambule4 + preambule5 + preambule2 + preambule3
     with open(nom_fichier, "w", encoding="utf-8") as fichier:
         fichier.write(preambule)
         fichier.write(contenu_questions)
