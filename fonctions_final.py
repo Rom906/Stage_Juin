@@ -3,10 +3,10 @@ import subprocess
 import random
 
 
-def question_to_latex(q):
+def question_to_latex(q, correction=False):
     latex = ""
     if not q["libre"]:
-        latex = "\\section{" + q.get("section", "") + "}\n"
+        latex += "\\section{" + q.get("section", "") + "}\n"
         latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
         latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
         latex += "\\setcounter{possibility}{0}\n"
@@ -17,13 +17,19 @@ def question_to_latex(q):
 
         for choix in choix_mélangés:
             if choix["correct"]:
-                latex += "    \\correct " + choix["texte"] + "\n"
+                if correction:
+                    latex += "    \\correct " + choix["texte"] + "\n"
+                else:
+                    latex += "    \\leurre " + choix["texte"] + "\n"
             else:
                 latex += "    \\leurre " + choix["texte"] + "\n"
         latex += "}\n"
-        latex += "\\pourquoi{}\n"
+        if correction and "explication" in q:
+            latex += "\\renewcommand{\\pourquoi}{" + q["explication"] + "}\n"
+        else:
+            latex += "\\pourquoi{}\n"
     else:
-        latex = "\\section{" + q.get("section", "") + "}\n"
+        latex += "\\section{" + q.get("section", "") + "}\n"
         latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
         latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
         latex += rf"""\noindent
@@ -35,6 +41,7 @@ def question_to_latex(q):
 \end{{tabular}}
 """
     return latex
+
 
 
 def ecrire_latex(contenu_questions, nom_fichier, date: str):
@@ -169,7 +176,7 @@ def extraire_difficulte(q):
     return q["difficulte"]
 
 
-def generate_exam(nombre_question: int, theme: str, nom_fichier: str, date: str):
+def generate_exam(nombre_question: int, theme: str, nom_fichier: str, date: str, correction: bool):
     with open("qcm_questions.yaml", "r", encoding="utf-8") as fichier:
         base = yaml.safe_load(fichier)
     latex_code = ""
@@ -185,11 +192,16 @@ def generate_exam(nombre_question: int, theme: str, nom_fichier: str, date: str)
             if index not in indices_deja_choisis:
                 Liste.append(toutes_les_questions[index])
                 indices_deja_choisis.add(index)
-    Liste.sort(
-        key=extraire_difficulte
-    )  # superbe solution d'un forum pour trier un dictionnaire... grace à la fonction crée ci dessu
+    Liste.sort(key=extraire_difficulte)
     for question in Liste:
-        latex_code += question_to_latex(question) + "\n"
+        latex_code += question_to_latex(question, correction=False) + "\n"
     ecrire_latex(latex_code, nom_fichier, date)
     final = generation_pdf(nom_fichier)
+    if correction:
+        correc = ""
+        for question in Liste:
+            correc += question_to_latex(question, correction=True) + "\n"
+        ecrire_latex(correc, "corrige.tex", date)
+        generation_pdf("corrige.tex")
+
     return final

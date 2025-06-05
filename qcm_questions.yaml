@@ -11,6 +11,7 @@ POO:
         correct: true
       - texte: "c'est un paramètre comme un autre sans signification particulière"
         correct: false
+    explication: "Logique t'es trop gez"
 
   - id: q02
     section: ""
