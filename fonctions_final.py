@@ -18,14 +18,14 @@ def question_to_latex(q, correction=False):
         for choix in choix_mélangés:
             if choix["correct"]:
                 if correction:
-                    latex += "    \\correct " + choix["texte"] + "\n"
+                    latex += "    \\correct " + "\\textcolor{red}{" + choix["texte"] + "}" + "\n"
                 else:
                     latex += "    \\leurre " + choix["texte"] + "\n"
             else:
                 latex += "    \\leurre " + choix["texte"] + "\n"
         latex += "}\n"
         if correction and "explication" in q:
-            latex += "\\renewcommand{\\pourquoi}{" + q["explication"] + "}\n"
+            latex += "\\renewcommand{\\pourquoi}{" + "\\textcolor{red}{" + q["explication"] + "}}\n"
         else:
             latex += "\\pourquoi{}\n"
     else:
@@ -41,7 +41,6 @@ def question_to_latex(q, correction=False):
 \end{{tabular}}
 """
     return latex
-
 
 
 def ecrire_latex(contenu_questions, nom_fichier, date: str, correction=False):
