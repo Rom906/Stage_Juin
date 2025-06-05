@@ -6,17 +6,17 @@ import random
 def question_to_latex(q):
     latex = ""
     if q["libre"] is False:
-          latex = "\\section{" + q.get("section", "") + "}\n"
-          latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
-          latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
-          latex += "\\possibilites{\n"
-          for choix in q["choix"]:
-              if choix["correct"]:
-                  latex += "    \\correct " + choix["texte"] + "\n"
-              else:
-                  latex += "    \\leurre " + choix["texte"] + "\n"
-          latex += "}\n"
-          latex += "\\pourquoi{}\n"
+        latex = "\\section{" + q.get("section", "") + "}\n"
+        latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
+        latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
+        latex += "\\possibilites{\n"
+        for choix in q["choix"]:
+            if choix["correct"]:
+                latex += "    \\correct " + choix["texte"] + "\n"
+            else:
+                latex += "    \\leurre " + choix["texte"] + "\n"
+        latex += "}\n"
+        latex += "\\pourquoi{}\n"
     else:
         latex = "\\section{" + q.get("section", "") + "}\n"
         latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
