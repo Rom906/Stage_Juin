@@ -9,6 +9,7 @@ def question_to_latex(q):
         latex = "\\section{" + q.get("section", "") + "}\n"
         latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
         latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
+        latex += "\\setcounter{possibility}{0}\n"
         latex += "\\possibilites{\n"
         for choix in q["choix"]:
             if choix["correct"]:
