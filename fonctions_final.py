@@ -26,7 +26,7 @@ def question_to_latex(q):
         latex = "\\section{" + q.get("section", "") + "}\n"
         latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
         latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
-        latex += fr"""\noindent
+        latex += rf"""\noindent
 \begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
 \hline
 \parbox[t][{q["choix"]}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
@@ -111,8 +111,10 @@ def ecrire_latex(contenu_questions, nom_fichier, date: str):
     \\
     {\bf  { Contrôle 1A }}\\"""
     preambule2 = r"""
-    {{\footnotesize {}}}\\""".format(date)
-    preambule3 =r"""
+    {{\footnotesize {}}}\\""".format(
+        date
+    )
+    preambule3 = r"""
     \hline
   \end{tabular}
 \end{center}
@@ -152,7 +154,9 @@ Barème. Pour chaque question :
     with open(nom_fichier, "w", encoding="utf-8") as fichier:
         fichier.write(preambule)
         fichier.write(contenu_questions)
-        fichier.write("\n\\end{document}") # rajoute la fin pour que le compilateur ne plante pas
+        fichier.write(
+            "\n\\end{document}"
+        )  # rajoute la fin pour que le compilateur ne plante pas
     return fichier
 
 
@@ -161,32 +165,31 @@ def generation_pdf(nom_fichier):
     return pdf
 
 
+def extraire_difficulte(q):
+    return q["difficulte"]
+
+
 def generate_exam(nombre_question: int, theme: str, nom_fichier: str, date: str):
     with open("qcm_questions.yaml", "r", encoding="utf-8") as fichier:
         base = yaml.safe_load(fichier)
-
     latex_code = ""
-    compteur = 0
-    for question in base[theme]:
-        compteur += 1
+    toutes_les_questions = base[theme]
 
-    Liste = []
-    for _ in range(compteur):
-        hasard = random.randrange(0, compteur)
-        if compteur < nombre_question:
-            for i in range(compteur):
-                Liste.append(base[theme][i])
-            break
-        else:
-            while base[theme][hasard] in Liste:
-                hasard = random.randrange(0, compteur) # Volonté de trier ensuite les questions par difficulté
-            Liste.append(base[theme][hasard])
-
-    random.shuffle(Liste)
-
+    if nombre_question >= len(toutes_les_questions):
+        Liste = list(toutes_les_questions)
+    else:
+        Liste = []
+        indices_deja_choisis = set()
+        while len(Liste) < nombre_question:
+            index = random.randrange(len(toutes_les_questions))
+            if index not in indices_deja_choisis:
+                Liste.append(toutes_les_questions[index])
+                indices_deja_choisis.add(index)
+    Liste.sort(
+        key=extraire_difficulte
+    )  # superbe solution d'un forum pour trier un dictionnaire... grace à la fonction crée ci dessu
     for question in Liste:
         latex_code += question_to_latex(question) + "\n"
-
     ecrire_latex(latex_code, nom_fichier, date)
     final = generation_pdf(nom_fichier)
     return final
