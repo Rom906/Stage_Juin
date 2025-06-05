@@ -3,7 +3,7 @@ POO:
     section: "" # si il y a des explications avant la question!
     difficulte: "1"
     enonce: "Que représente le premier paramètre (souvent appelé \\verb|self|) dans une méthode codée en python ?"
-    simple: False
+    libre: False
     choix:
       - texte: "la classe à laquelle la méthode appartient"
         correct: false
@@ -16,7 +16,7 @@ POO:
     section: ""
     difficulte: "1"
     enonce: "Je permets à un objet d'être différent d'un autre objet de la même classe. Je suis~:"
-    simple: False
+    libre: False
     choix:
       - texte: "un attribut"
         correct: true
@@ -30,7 +30,7 @@ Info:
     section: ""
     difficulte: "1"
     enonce: "Qui est le plus important entre le main, les tests et les fonctions?"
-    simple: False
+    libre: False
     choix:
       - texte: "Le main"
         correct:  True
@@ -39,4 +39,9 @@ Info:
       - texte: "Les fonctions"
         correct: True
     
-  
+  - id: q04
+    section: ""
+    difficulte: "1"
+    enonce: "Ecrire le diagramme d'une classe théorique que l'on pourra appeler jeu video donner des attribut et methode en accord avec le nom de cette classe"
+    libre: True
+    choix: "\\vspace{4 cm}"
