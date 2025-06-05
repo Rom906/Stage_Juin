@@ -151,7 +151,7 @@ def generation_pdf(nom_fichier):
     return pdf
 
 
-def generate_exam(nombre_question: int, theme: str):
+def generate_exam(nombre_question: int, theme: str, nom_fichier: str):
     with open("qcm_questions.yaml", "r", encoding="utf-8") as fichier:
         base = yaml.safe_load(fichier)
 
@@ -177,6 +177,6 @@ def generate_exam(nombre_question: int, theme: str):
     for question in Liste:
         latex_code += question_to_latex(question) + "\n"
 
-    ecrire_latex(latex_code, "prime.tex")
-    final = generation_pdf("prime.tex")
+    ecrire_latex(latex_code, nom_fichier)
+    final = generation_pdf(nom_fichier)
     return final
