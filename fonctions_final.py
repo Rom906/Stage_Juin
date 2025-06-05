@@ -21,7 +21,14 @@ def question_to_latex(q):
         latex = "\\section{" + q.get("section", "") + "}\n"
         latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
         latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
-        latex += q["choix"]
+        latex += fr"""\noindent
+\begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
+\hline
+\parbox[t][{q["choix"]}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
+\\
+\hline
+\end{{tabular}}
+"""
     return latex
 
 

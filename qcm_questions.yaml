@@ -41,7 +41,7 @@ Info:
     
   - id: q04
     section: ""
-    difficulte: "1"
+    difficulte: "2"
     enonce: "Ecrire le diagramme d'une classe théorique que l'on pourra appeler jeu video donner des attribut et methode en accord avec le nom de cette classe"
     libre: True
-    choix: "\\vspace{4 cm}"
+    choix: "4cm"
