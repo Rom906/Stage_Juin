@@ -7,9 +7,7 @@ def question_to_latex(q, correction=False):
     latex = ""
     if not q["libre"]:
         if "image" in q:
-            
             latex += "\\section{" + q.get("section", "") + "}\n"
-            
             latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
             latex += "\\begin{figure}[h]\n"
             latex += "\\centering\n"
@@ -88,8 +86,6 @@ def question_to_latex(q, correction=False):
 \end{{tabular}}
 """
     return latex
-
-
 
 
 def ecrire_latex(contenu_questions, nom_fichier, date: str, correction=False):
