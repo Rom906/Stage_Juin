@@ -7,13 +7,15 @@ def question_to_latex(q, correction=False):
     latex = ""
     if not q["libre"]:
         if "image" in q:
-            latex += "\\begin{figure}[h]"
-            latex += r"""
-            \centering
-            \includegraphics[width=\paperwidth]{""" + q["image"] + "}\n"+"\\end{figure}"
+            
             latex += "\\section{" + q.get("section", "") + "}\n"
+            
             latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
-            latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
+            latex += "\\begin{figure}[h]\n"
+            latex += "\\centering\n"
+            latex += "\\includegraphics[width=" + q.get("taille_image", "1.0") + "\\textwidth]{" + q["image"] + "}\n"
+            latex += "\\end{figure}\n"
+            latex += "\\enonce{" + q["enonce"] + "}\n"
             latex += "\\setcounter{possibility}{0}\n"
             latex += "\\possibilites{\n"
 
@@ -23,7 +25,7 @@ def question_to_latex(q, correction=False):
             for choix in choix_mélangés:
                 if choix["correct"]:
                     if correction:
-                        latex += "    \\correct " + "\\textcolor{red}{" + choix["texte"] + "}" + "\n"
+                        latex += "    \\correct " + "\\textcolor{red}{" + choix["texte"] + "}\n"
                     else:
                         latex += "    \\leurre " + choix["texte"] + "\n"
                 else:
@@ -34,9 +36,9 @@ def question_to_latex(q, correction=False):
             else:
                 latex += "\\pourquoi{}\n"
         else:
-            latex += "\\section{" + q.get("section", "") + "}[h]\n"
+            latex += "\\section{" + q.get("section", "") + "}\n"
             latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
-            latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
+            latex += "\\enonce{" + q["enonce"] + "}\n"
             latex += "\\setcounter{possibility}{0}\n"
             latex += "\\possibilites{\n"
 
@@ -46,7 +48,7 @@ def question_to_latex(q, correction=False):
             for choix in choix_mélangés:
                 if choix["correct"]:
                     if correction:
-                        latex += "    \\correct " + "\\textcolor{red}{" + choix["texte"] + "}" + "\n"
+                        latex += "    \\correct " + "\\textcolor{red}{" + choix["texte"] + "}\n"
                     else:
                         latex += "    \\leurre " + choix["texte"] + "\n"
                 else:
@@ -58,38 +60,36 @@ def question_to_latex(q, correction=False):
                 latex += "\\pourquoi{}\n"
     else:
         if "image" in q:
-            latex += f"""\\begin{{figure}}[h]
-\\centering
-\\includegraphics[width=\\paperwidth]{{{q["image"]}}}
-\\end{{figure}}
-
-\\section{{{q.get("section", "")}}}
-\\difficulte{{{q["difficulte"]}}}
-
-\\enonce{{{q["enonce"]}}}
-
-\\noindent
-\\begin{{tabular}}{{|p{{\\dimexpr\\textwidth-2\\tabcolsep-2\\arrayrulewidth}}|}}
-\\hline
-\\parbox[t][{q["choix"]}][c]{{\\dimexpr\\textwidth-2\\tabcolsep-2\\arrayrulewidth}}{{}}
-\\\\
-\\hline
-\\end{{tabular}}
+            latex += "\\section{" + q.get("section", "") + "}\n"
+            latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
+            latex += "\\begin{figure}[h]\n"
+            latex += "\\centering\n"
+            latex += "\\includegraphics[width=" + q.get("taille_image", "1.0") + "\\textwidth]{" + q["image"] + "}\n"
+            latex += "\\end{figure}\n"
+            latex += "\\enonce{" + q["enonce"] + "}\n"
+            latex += rf"""\noindent
+\begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
+\hline
+\parbox[t][{q["choix"]}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
+\\
+\hline
+\end{{tabular}}
 """
-
         else:
             latex += "\\section{" + q.get("section", "") + "}\n"
             latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
-            latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
+            latex += "\\enonce{" + q["enonce"] + "}\n"
             latex += rf"""\noindent
-    \begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
-    \hline
-    \parbox[t][{q["choix"]}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
-    \\
-    \hline
-    \end{{tabular}}
-    """
+\begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
+\hline
+\parbox[t][{q["choix"]}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
+\\
+\hline
+\end{{tabular}}
+"""
     return latex
+
+
 
 
 def ecrire_latex(contenu_questions, nom_fichier, date: str, correction=False):
