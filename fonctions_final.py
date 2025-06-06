@@ -6,40 +6,89 @@ import random
 def question_to_latex(q, correction=False):
     latex = ""
     if not q["libre"]:
-        latex += "\\section{" + q.get("section", "") + "}\n"
-        latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
-        latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
-        latex += "\\setcounter{possibility}{0}\n"
-        latex += "\\possibilites{\n"
+        if "image" in q:
+            latex += "\\begin{figure}[h]"
+            latex += r"""
+            \centering
+            \includegraphics[width=\paperwidth]{""" + q["image"] + "}\n"+"\\end{figure}"
+            latex += "\\section{" + q.get("section", "") + "}\n"
+            latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
+            latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
+            latex += "\\setcounter{possibility}{0}\n"
+            latex += "\\possibilites{\n"
 
-        choix_mélangés = list(q["choix"])
-        random.shuffle(choix_mélangés)
+            choix_mélangés = list(q["choix"])
+            random.shuffle(choix_mélangés)
 
-        for choix in choix_mélangés:
-            if choix["correct"]:
-                if correction:
-                    latex += "    \\correct " + "\\textcolor{red}{" + choix["texte"] + "}" + "\n"
+            for choix in choix_mélangés:
+                if choix["correct"]:
+                    if correction:
+                        latex += "    \\correct " + "\\textcolor{red}{" + choix["texte"] + "}" + "\n"
+                    else:
+                        latex += "    \\leurre " + choix["texte"] + "\n"
                 else:
                     latex += "    \\leurre " + choix["texte"] + "\n"
+            latex += "}\n"
+            if correction and "explication" in q:
+                latex += "\\renewcommand{\\pourquoi}{" + "\\textcolor{red}{" + q["explication"] + "}}\n"
             else:
-                latex += "    \\leurre " + choix["texte"] + "\n"
-        latex += "}\n"
-        if correction and "explication" in q:
-            latex += "\\renewcommand{\\pourquoi}{" + "\\textcolor{red}{" + q["explication"] + "}}\n"
+                latex += "\\pourquoi{}\n"
         else:
-            latex += "\\pourquoi{}\n"
+            latex += "\\section{" + q.get("section", "") + "}[h]\n"
+            latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
+            latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
+            latex += "\\setcounter{possibility}{0}\n"
+            latex += "\\possibilites{\n"
+
+            choix_mélangés = list(q["choix"])
+            random.shuffle(choix_mélangés)
+
+            for choix in choix_mélangés:
+                if choix["correct"]:
+                    if correction:
+                        latex += "    \\correct " + "\\textcolor{red}{" + choix["texte"] + "}" + "\n"
+                    else:
+                        latex += "    \\leurre " + choix["texte"] + "\n"
+                else:
+                    latex += "    \\leurre " + choix["texte"] + "\n"
+            latex += "}\n"
+            if correction and "explication" in q:
+                latex += "\\renewcommand{\\pourquoi}{" + "\\textcolor{red}{" + q["explication"] + "}}\n"
+            else:
+                latex += "\\pourquoi{}\n"
     else:
-        latex += "\\section{" + q.get("section", "") + "}\n"
-        latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
-        latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
-        latex += rf"""\noindent
-\begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
-\hline
-\parbox[t][{q["choix"]}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
-\\
-\hline
-\end{{tabular}}
+        if "image" in q:
+            latex += f"""\\begin{{figure}}[h]
+\\centering
+\\includegraphics[width=\\paperwidth]{{{q["image"]}}}
+\\end{{figure}}
+
+\\section{{{q.get("section", "")}}}
+\\difficulte{{{q["difficulte"]}}}
+
+\\enonce{{{q["enonce"]}}}
+
+\\noindent
+\\begin{{tabular}}{{|p{{\\dimexpr\\textwidth-2\\tabcolsep-2\\arrayrulewidth}}|}}
+\\hline
+\\parbox[t][{q["choix"]}][c]{{\\dimexpr\\textwidth-2\\tabcolsep-2\\arrayrulewidth}}{{}}
+\\\\
+\\hline
+\\end{{tabular}}
 """
+
+        else:
+            latex += "\\section{" + q.get("section", "") + "}\n"
+            latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
+            latex += "\n" + "\\enonce{" + q["enonce"] + "}\n"
+            latex += rf"""\noindent
+    \begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
+    \hline
+    \parbox[t][{q["choix"]}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
+    \\
+    \hline
+    \end{{tabular}}
+    """
     return latex
 
 
