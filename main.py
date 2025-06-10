@@ -1,3 +1,6 @@
 from fonctions_final import generate_exam
+from datetime import datetime
 
-generate_exam(3, ["POO"], "autre.tex", "05/06/2025", correction=True) # Attention date avec un module et non en chaine de caractère
+date = datetime(2025, 6, 10)
+
+generate_exam(3, ["POO"], "autre.tex", date, correction=True) # Attention date avec un module et non en chaine de caractère

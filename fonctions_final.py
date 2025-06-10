@@ -1,6 +1,7 @@
 import yaml
 import subprocess
 import random
+import datetime
 
 
 def question_to_latex(q, correction=False):
@@ -88,7 +89,8 @@ def question_to_latex(q, correction=False):
     return latex
 
 
-def ecrire_latex(contenu_questions, nom_fichier, date: str, correction=False):
+def ecrire_latex(contenu_questions, nom_fichier, date, correction=False):
+    date_2 = date.strftime("%d-%m-%Y")
     preambule = r"""\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -172,7 +174,7 @@ def ecrire_latex(contenu_questions, nom_fichier, date: str, correction=False):
     {\bf  { Contrôle 1A }}\\"""
     preambule2 = r"""
     {{\footnotesize {}}}\\""".format(
-        date
+        date_2
     )
     preambule3 = r"""
     \hline
