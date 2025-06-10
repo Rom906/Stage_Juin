@@ -1,7 +1,6 @@
 import yaml
 import subprocess
 import random
-import datetime
 
 
 def question_to_latex(q, correction=False):

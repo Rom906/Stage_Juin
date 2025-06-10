@@ -3,4 +3,4 @@ from datetime import datetime
 
 date = datetime(2025, 6, 10)
 
-generate_exam(3, ["POO"], "autre.tex", date, correction=True) # Attention date avec un module et non en chaine de caractère
+generate_exam(3, ["POO"], "autre.tex", date, correction=True)
