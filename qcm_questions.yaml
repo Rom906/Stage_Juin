@@ -1,5 +1,6 @@
-POO:
+question:
   - id: q01
+    mots_clés: "POO"
     section: "" # si il y a des explications avant la question!
     difficulte: "1"
     enonce: "Que représente le premier paramètre (souvent appelé \\verb|self|) dans une méthode codée en python ?"
@@ -14,6 +15,7 @@ POO:
     explication: "C'est du cours"
 
   - id: q02
+    mots_clés: "POO"
     section: ""
     difficulte: "1"
     enonce: "Je permets à un objet d'être différent d'un autre objet de la même classe. Je suis~:"
@@ -26,8 +28,8 @@ POO:
       - texte: "un {\em design patern}"
         correct: False
 
-Info:
   - id: q03
+    mots_clés: "POO"
     section: ""
     difficulte: "1"
     enonce: "Qui est le plus important entre le main, les tests et les fonctions?"
@@ -39,8 +41,9 @@ Info:
         correct: True
       - texte: "Les fonctions"
         correct: True
-    
+
   - id: q04
+    mots_clés: "POO"
     section: ""
     image: "image.png"
     taille_image: "0.5"

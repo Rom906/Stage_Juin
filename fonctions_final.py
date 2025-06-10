@@ -229,11 +229,14 @@ def extraire_difficulte(q):
     return q["difficulte"]
 
 
-def generate_exam(nombre_question: int, theme: str, nom_fichier: str, date: str, correction: bool):
+def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str, correction: bool):
     with open("qcm_questions.yaml", "r", encoding="utf-8") as fichier:
         base = yaml.safe_load(fichier)
     latex_code = ""
-    toutes_les_questions = base[theme]
+    toutes_les_questions = []
+    for question in base["question"]:
+        if question["mots_clés"] in theme:
+            toutes_les_questions.append(question)
 
     if nombre_question >= len(toutes_les_questions):
         Liste = list(toutes_les_questions)
@@ -256,5 +259,4 @@ def generate_exam(nombre_question: int, theme: str, nom_fichier: str, date: str,
             correc += question_to_latex(question, correction=True) + "\n"
         ecrire_latex(correc, "corrige.tex", date)
         generation_pdf("corrige.tex")
-
     return final
