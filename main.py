@@ -3,4 +3,4 @@ from datetime import datetime
 
 date = datetime(2025, 6, 10)
 
-generate_exam(3, ["POO"], "autre.tex", date, correction=True)
+generate_exam(15, ["POO", "Algorithmie"], "autre.tex", date, correction=True, exercice=True)

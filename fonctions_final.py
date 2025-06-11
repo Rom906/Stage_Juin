@@ -88,6 +88,77 @@ def question_to_latex(q, correction=False):
     return latex
 
 
+def groupe_to_latex(groupe, correction=False):
+    import random
+
+    latex = ""
+    if "questions" in groupe:
+        if "nom" in groupe:
+            latex += "\\section*{" + groupe["nom"] + "}\n"
+        questions = groupe["questions"]
+    else:
+        questions = groupe
+
+    for q in questions:
+        if not isinstance(q, dict):
+            print("Warning: élément questions non dict détecté:", q)
+            continue
+
+        if not q.get("libre", False):  # QCM
+            latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
+
+            if "image" in q:
+                latex += "\\begin{figure}[h]\n\\centering\n"
+                latex += "\\includegraphics[width=" + q.get("taille_image", "0.8") + "\\textwidth]{" + q["image"] + "}\n"
+                latex += "\\end{figure}\n"
+
+            latex += "\\enonce{" + q["enonce"] + "}\n"
+            latex += "\\setcounter{possibility}{0}\n\\possibilites{\n"
+
+            choix_mélangés = list(q.get("choix", []))
+            random.shuffle(choix_mélangés)
+
+            for choix in choix_mélangés:
+                texte = choix.get("texte", "") if isinstance(choix, dict) else str(choix)
+                correct = choix.get("correct", False) if isinstance(choix, dict) else False
+
+                if correct:
+                    if correction:
+                        latex += "    \\correct \\textcolor{red}{" + texte + "}\n"
+                    else:
+                        latex += "    \\leurre " + texte + "\n"
+                else:
+                    latex += "    \\leurre " + texte + "\n"
+
+            latex += "}\n"
+            if correction and "explication" in q:
+                latex += "\\renewcommand{\\pourquoi}{" + "\\textcolor{red}{" + q["explication"] + "}}\n"
+            else:
+                latex += "\\pourquoi{}\n"
+
+        else:  # Question libre
+            latex += "\\subsection*{" + q.get("id", "") + "}\n"
+            latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
+
+            if "image" in q:
+                latex += "\\begin{figure}[h]\n\\centering\n"
+                latex += "\\includegraphics[width=" + q.get("taille_image", "0.8") + "\\textwidth]{" + q["image"] + "}\n"
+                latex += "\\end{figure}\n"
+
+            latex += "\\enonce{" + q["enonce"] + "}\n"
+            hauteur_zone = q.get("choix", "4cm")  # on utilise toujours "choix"
+            latex += rf"""\noindent
+\begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
+\hline
+\parbox[t][{hauteur_zone}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
+\\
+\hline
+\end{{tabular}}
+"""
+
+    return latex
+
+
 def ecrire_latex(contenu_questions, nom_fichier, date, correction=False):
     date_2 = date.strftime("%d-%m-%Y")
     preambule = r"""\documentclass[12pt]{article}
@@ -227,37 +298,83 @@ def generation_pdf(nom_fichier):
 
 
 def extraire_difficulte(q):
-    return q["difficulte"]
+    if "difficulte" in q:
+        try:
+            diff = int(q["difficulte"])
+            if diff < 1:
+                diff = 1
+            elif diff > 3:
+                diff = 3
+            return diff
+        except:
+            return 1
+    else:
+        return 1
 
 
-def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str, correction: bool):
+def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str, correction: bool, exercice=False):
     with open("qcm_questions.yaml", "r", encoding="utf-8") as fichier:
         base = yaml.safe_load(fichier)
     latex_code = ""
     toutes_les_questions = []
-    for question in base["question"]:
-        if question["mots_clés"] in theme:
-            toutes_les_questions.append(question)
-
-    if nombre_question >= len(toutes_les_questions):
-        Liste = list(toutes_les_questions)
+    if exercice:
+        for groupe in base.get("exercices", []):
+            mots_cles = groupe.get("mots_clés", "")
+            if any(t in mots_cles for t in theme):
+                toutes_les_questions.append(groupe)
     else:
-        Liste = []
-        indices_deja_choisis = set()
-        while len(Liste) < nombre_question:
-            index = random.randrange(len(toutes_les_questions))
-            if index not in indices_deja_choisis:
-                Liste.append(toutes_les_questions[index])
-                indices_deja_choisis.add(index)
+        for question in base.get("question", []):
+            if any(t in question.get("mots_clés", "") for t in theme):
+                toutes_les_questions.append(question)
+    if exercice:
+        total_questions = sum(len(groupe.get("questions", [])) for groupe in toutes_les_questions)
+        if nombre_question > total_questions:
+            Liste = list(toutes_les_questions)
+            questions_independantes = []
+            for question in base.get("question", []):
+                if any(t in question.get("mots_clés", "") for t in theme):
+                    questions_independantes.append(question)
+
+            nb_manquantes = nombre_question - total_questions
+            if nb_manquantes > 0:
+                Liste.extend(questions_independantes[:nb_manquantes])
+        else:
+            Liste = []
+            indices_deja_choisis = []
+            while len(Liste) < nombre_question:
+                index = random.randrange(len(toutes_les_questions))
+                if index not in indices_deja_choisis:
+                    Liste.append(toutes_les_questions[index])
+                    indices_deja_choisis.add(index)
+    else:
+        if nombre_question >= len(toutes_les_questions):
+            Liste = list(toutes_les_questions)
+        else:
+            Liste = []
+            indices_deja_choisis = []
+            while len(Liste) < nombre_question:
+                index = random.randrange(len(toutes_les_questions))
+                if index not in indices_deja_choisis:
+                    Liste.append(toutes_les_questions[index])
+                    indices_deja_choisis.append(index)
     Liste.sort(key=extraire_difficulte)
-    for question in Liste:
-        latex_code += question_to_latex(question, correction=False) + "\n"
+    if exercice:
+        for groupe in Liste:
+            latex_code += groupe_to_latex(groupe, correction=False) + "\n"
+    else:
+        for question in Liste:
+            latex_code += question_to_latex(question, correction=False) + "\n"
+
     ecrire_latex(latex_code, nom_fichier, date)
     final = generation_pdf(nom_fichier)
     if correction:
         correc = ""
-        for question in Liste:
-            correc += question_to_latex(question, correction=True) + "\n"
+        if exercice:
+            for groupe in Liste:
+                correc += groupe_to_latex(groupe, correction=True) + "\n"
+        else:
+            for question in Liste:
+                correc += question_to_latex(question, correction=True) + "\n"
         ecrire_latex(correc, "corrige.tex", date)
         generation_pdf("corrige.tex")
     return final
