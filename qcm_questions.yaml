@@ -1,3 +1,79 @@
+exercices:
+  - nom: "Un algorithme de multiplication"
+    questions:
+      - id: "1.1"
+        question: |
+          programme mul(x: entier, y: entier) → entier:
+              r ← 0
+              tant que x ≠ 0:
+                  si x est impair:
+                      x ← x - 1
+                      r ← r + y
+                  x ← x / 2
+                  y ← y * 2
+              
+              rendre r
+
+          Montrer que le programme mul est un algorithme.
+        libre: true
+        difficulte: "1"
+
+      - id: "1.2"
+        question: Donnez la complexité de l'algorithme mul en fonction de x.
+        libre: true
+        difficulte: "2"
+
+      - id: "1.3"
+        question: Démontrez que mul(x, y) = x * y.
+        libre: true
+        difficulte: "3"
+
+  - nom: "Représentation binaire des nombres"
+    questions:
+      - id: "2.1"
+        question: Comment savoir si l'entier représenté par un tableau de bits est pair ?
+        libre: true
+        difficulte: "1"
+
+      - id: "2.2.1"
+        question: |
+          Quel est la complexité de l'algorithme suivant :
+          algorithme mul2(T: [bit]):
+              pour chaque i de [1, T.longueur - 1]:
+                  T[i] ← T[i-1]
+              T[0] ← 0
+        libre: true
+        difficulte: "2"
+
+      - id: "2.2.2"
+        question: Montrez que l'algorithme mul2(T: [bit]) permet de multiplier par deux en place un entier.
+        libre: true
+        difficulte: "2"
+
+      - id: "2.3"
+        question: Donnez un algorithme div2(T: [bit]) ainsi que sa complexité permettant de diviser par deux un entier représenté en binaire.
+        libre: true
+        difficulte: "3"
+
+      - id: "2.4"
+        question: Si les tableaux Tx et Ty représentent x et y, quelle est la taille du tableau représentant x * y ?
+        libre: true
+        difficulte: "2"
+
+  - nom: "Adaptation de l'algorithme"
+    questions:
+      - id: "3.1"
+        question: Modifiez l'algorithme mul pour qu'il soit : mul(Tx: [bit], Ty: [bit]) → [bit]
+        libre: true
+        difficulte: "3"
+
+      - id: "3.2"
+        question: Déduisez la complexité de ce nouvel algorithme par rapport à Tx.longueur et Ty.longueur.
+        libre: true
+        difficulte: "3"
+
+
+
 question:
   - id: q01
     mots_clés: "POO"
