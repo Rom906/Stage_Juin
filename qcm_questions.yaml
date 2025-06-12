@@ -73,20 +73,20 @@ exercices:
 
   - nom: "Adaptation de l'algorithme"
     questions:
-      - id: "3.1"
+      - question: "3.1"
         enonce: "Modifiez l'algorithme mul pour qu'il soit : mul(Tx: [bit], Ty: [bit]) → [bit]"
         libre: true
         difficulte: "3"
         choix: "4cm"
 
-      - id: "3.2"
+      - question: "3.2"
         enonce: "Déduisez la complexité de ce nouvel algorithme par rapport à Tx.longueur et Ty.longueur."
         libre: true
         difficulte: "3"
         choix: "4cm"
   - nom: ""
     mots_clés: ""
-    -questions:
+    questions:
       - question: q01
         mots_clés: "POO"
         difficulte: "1"
