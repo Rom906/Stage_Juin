@@ -89,7 +89,6 @@ def question_to_latex(q, correction=False):
 
 
 def groupe_to_latex(groupe, correction=False):
-    import random
 
     latex = ""
     if "questions" in groupe:
@@ -155,7 +154,6 @@ def groupe_to_latex(groupe, correction=False):
 \hline
 \end{{tabular}}
 """
-
     return latex
 
 
