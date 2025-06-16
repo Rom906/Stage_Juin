@@ -6,7 +6,7 @@ import random
 def groupe_to_latex(groupe, correction=False, exercice=True):
     latex = ""
     if "questions" in groupe:
-        if "nom" in groupe and groupe["nom"].strip():
+        if "nom" in groupe: # Verifie que c'est pas une chaine vide au moins evite de rajouter du latex pour rien 
             latex += "\\section*{" + groupe["nom"] + "}\n"
         questions = groupe["questions"]
     else:

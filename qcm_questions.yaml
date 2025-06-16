@@ -6,7 +6,7 @@ exercices:
         enonce: "
           programme mul(x: entier, y: entier) → entier:
               r ← 0
-              tant que x ≠ 0:
+              tant que x != 0:
                   si x est impair:
                       x ← x - 1
                       r ← r + y
@@ -90,7 +90,7 @@ exercices:
       - question: q01
         mots_clés: "POO"
         difficulte: "1"
-        enonce: "Que représente le premier paramètre (souvent appelé \\verb|self|) dans une méthode codée en python ? Justifiez"
+        enonce: "Que représente le premier paramètre (souvent appelé self) dans une méthode codée en python ? Justifiez"
         libre: true
         choix:
           - texte: "la classe à laquelle la méthode appartient"
@@ -112,7 +112,7 @@ exercices:
             correct: true
           - texte: "une methode"
             correct: false
-          - texte: "un {\em design patern}"
+          - texte: "un design patern"
             correct: false
 
       - question: q03
