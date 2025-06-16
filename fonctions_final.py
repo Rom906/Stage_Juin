@@ -79,7 +79,6 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
                             latex += "    \\leurre " + texte + "\n"
                     else:
                         latex += "    \\leurre " + texte + "\n"
-                
                 latex += "}\n\\end{minipage}}\n\\end{center}\n"
             if correction:
                 explications = "\\textcolor{red}{" + q.get("explication", "") + "}\n"
