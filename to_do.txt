@@ -1,0 +1,3 @@
+- correction pour tout
+- liste pour les tags
+- latex à incorporer
