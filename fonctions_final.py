@@ -5,8 +5,9 @@ import random
 
 def groupe_to_latex(groupe, correction=False, exercice=True):
     latex = ""
+    
     if "questions" in groupe:
-        if "nom" in groupe: # Verifie que c'est pas une chaine vide au moins evite de rajouter du latex pour rien 
+        if "nom" in groupe and groupe["nom"]:
             latex += "\\section*{" + groupe["nom"] + "}\n"
         questions = groupe["questions"]
     else:
@@ -18,7 +19,6 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
         if not isinstance(q, dict):
             print("Attention, un élément n'est pas un dictionnaire:", q)
             continue
-        # Si la question n'est pas libre (QCM)
         if not q.get("libre", False):
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
 
@@ -26,17 +26,16 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
                 latex += "\\begin{figure}[h]\n\\centering\n"
                 latex += "\\includegraphics[width=" + q.get("taille_image", "0.8") + "\\textwidth]{" + q["image"] + "}\n"
                 latex += "\\end{figure}\n"
+
             latex += "\\enonce{" + q["enonce"] + "}\n"
+            latex += "\\begin{center}\n\\fbox{%\n\\begin{minipage}{0.9\\linewidth}\n"
             latex += "\\setcounter{possibility}{0}\n\\possibilites{\n"
+
             choix_melanges = list(q.get("choix", []))
             random.shuffle(choix_melanges)
             for choix in choix_melanges:
-                if isinstance(choix, dict):
-                    texte = choix.get("texte", "")
-                    correct = choix.get("correct", False)
-                else:
-                    texte = str(choix)
-                    correct = False
+                texte = choix.get("texte", "") if isinstance(choix, dict) else str(choix)
+                correct = choix.get("correct", False) if isinstance(choix, dict) else False
                 if correct:
                     if correction:
                         latex += "    \\correct \\textcolor{red}{" + texte + "}\n"
@@ -44,33 +43,35 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
                         latex += "    \\leurre " + texte + "\n"
                 else:
                     latex += "    \\leurre " + texte + "\n"
-            latex += "}\n"
+
+            latex += "}\n\\end{minipage}}\n\\end{center}\n"
+
             if correction and "explication" in q:
                 latex += "\\renewcommand{\\pourquoi}{" + "\\textcolor{red}{" + q["explication"] + "}}\n"
             else:
                 latex += "\\pourquoi{}\n"
-        # Question libre (avec ou sans choix)
+
+        # Question libre
         elif q["libre"]:
             latex += "\\subsection*{" + q.get("id", "") + "}\n"
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
+
             if "image" in q:
                 latex += "\\begin{figure}[h]\n\\centering\n"
                 latex += "\\includegraphics[width=" + q.get("taille_image", "0.8") + "\\textwidth]{" + q["image"] + "}\n"
                 latex += "\\end{figure}\n"
+
             latex += "\\enonce{" + q["enonce"] + "}\n"
-            # Si on a des choix (QCM dans une question libre)
+
             if "choix" in q and q["choix"]:
+                latex += "\\begin{center}\n\\fbox{%\n\\begin{minipage}{0.9\\linewidth}\n"
                 latex += "\\setcounter{possibility}{0}\n\\possibilites{\n"
 
                 choix_melanges = list(q.get("choix", []))
                 random.shuffle(choix_melanges)
                 for choix in choix_melanges:
-                    if isinstance(choix, dict):
-                        texte = choix.get("texte", "")
-                        correct = choix.get("correct", False)
-                    else:
-                        texte = str(choix)
-                        correct = False
+                    texte = choix.get("texte", "") if isinstance(choix, dict) else str(choix)
+                    correct = choix.get("correct", False) if isinstance(choix, dict) else False
                     if correct:
                         if correction:
                             latex += "    \\correct \\textcolor{red}{" + texte + "}\n"
@@ -78,8 +79,9 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
                             latex += "    \\leurre " + texte + "\n"
                     else:
                         latex += "    \\leurre " + texte + "\n"
-                latex += "}\n"
-            # On met toujours le cadre même s'il y a choix pour que l'élève puisse justifier
+
+                latex += "}\n\\end{minipage}}\n\\end{center}\n"
+
             hauteur_zone = q.get("cadre", "4cm")
             latex += rf"""\noindent
 \begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
@@ -90,7 +92,8 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
 \end{{tabular}}
 """
 
-        else: # securité car j'ai rencontrer des petits problemes parfois
+        else:
+            # Sécurité en plus au cas ou 
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
             latex += "\\enonce{" + q["enonce"] + "}\n"
 
