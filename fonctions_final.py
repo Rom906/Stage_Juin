@@ -90,8 +90,7 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
 \end{{tabular}}
 """
 
-        else:
-            # Si jamais une autre forme (pour sécurité), on fait pareil que QCM
+        else: # securité car j'ai rencontrer des petits problemes parfois
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
             latex += "\\enonce{" + q["enonce"] + "}\n"
 
@@ -254,29 +253,41 @@ def extraire_difficulte(q):
 def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str, correction: bool, exercice=False):
     with open("qcm_questions.yaml", "r", encoding="utf-8") as fichier:
         base = yaml.safe_load(fichier)
+
     latex_code = ""
     toutes_les_questions = []
+
     if exercice:
         for groupe in base.get("exercices", []):
             mots_cles = groupe.get("mots_clés", "")
-            if any(t in mots_cles for t in theme):
-                toutes_les_questions.append(groupe)
+            for mot in theme:
+                if mot in mots_cles:
+                    toutes_les_questions.append(groupe)
+                    break
     else:
         for question in base.get("question", []):
-            if any(t in question.get("mots_clés", "") for t in theme):
-                toutes_les_questions.append(question)
+            mots_cles = question.get("mots_clés", "")
+            for mot in theme:
+                if mot in mots_cles:
+                    toutes_les_questions.append({"nom": "Question indépendante", "questions": [question]})
+                    break
+
     if exercice:
         total_questions = sum(len(groupe.get("questions", [])) for groupe in toutes_les_questions)
+
         if nombre_question > total_questions:
             Liste = list(toutes_les_questions)
+
             questions_independantes = []
             for question in base.get("question", []):
-                if any(t in question.get("mots_clés", "") for t in theme):
-                    questions_independantes.append(question)
+                mots_cles = question.get("mots_clés", "")
+                for mot in theme:
+                    if mot in mots_cles:
+                        questions_independantes.append({"nom": "Question indépendante", "questions": [question]})
+                        break
 
             nb_manquantes = nombre_question - total_questions
-            if nb_manquantes > 0:
-                Liste.extend(questions_independantes[:nb_manquantes])
+            Liste.extend(questions_independantes[:nb_manquantes])
         else:
             Liste = []
             indices_deja_choisis = []
@@ -284,7 +295,7 @@ def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str
                 index = random.randrange(len(toutes_les_questions))
                 if index not in indices_deja_choisis:
                     Liste.append(toutes_les_questions[index])
-                    indices_deja_choisis.add(index)
+                    indices_deja_choisis.append(index)
     else:
         if nombre_question >= len(toutes_les_questions):
             Liste = list(toutes_les_questions)
@@ -297,23 +308,14 @@ def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str
                     Liste.append(toutes_les_questions[index])
                     indices_deja_choisis.append(index)
     Liste.sort(key=extraire_difficulte)
-    if exercice:
-        for groupe in Liste:
-            latex_code += groupe_to_latex(groupe, correction=False) + "\n"
-    else:
-        for question in Liste:
-            latex_code += question_to_latex(question, correction=False) + "\n"
-
+    for groupe in Liste:
+        latex_code += groupe_to_latex(groupe, correction=False) + "\n"
     ecrire_latex(latex_code, nom_fichier, date)
     final = generation_pdf(nom_fichier)
     if correction:
         correc = ""
-        if exercice:
-            for groupe in Liste:
-                correc += groupe_to_latex(groupe, correction=True) + "\n"
-        else:
-            for question in Liste:
-                correc += question_to_latex(question, correction=True) + "\n"
+        for groupe in Liste:
+            correc += groupe_to_latex(groupe, correction=True) + "\n"
         ecrire_latex(correc, "corrige.tex", date)
         generation_pdf("corrige.tex")
     return final
