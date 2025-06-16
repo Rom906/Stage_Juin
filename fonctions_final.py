@@ -255,67 +255,61 @@ def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str
         base = yaml.safe_load(fichier)
 
     latex_code = ""
-    toutes_les_questions = []
+
+    exercices = [g for g in base.get("exercices", []) if any(t in g.get("mots_clés", "") for t in theme)]
+
+    exercices_simples = [ex for ex in exercices if len(ex.get("questions", [])) == 1]
+    exercices_complexes = [ex for ex in exercices if len(ex.get("questions", [])) > 1]
 
     if exercice:
-        for groupe in base.get("exercices", []):
-            mots_cles = groupe.get("mots_clés", "")
-            for mot in theme:
-                if mot in mots_cles:
-                    toutes_les_questions.append(groupe)
-                    break
-    else:
-        for question in base.get("question", []):
-            mots_cles = question.get("mots_clés", "")
-            for mot in theme:
-                if mot in mots_cles:
-                    toutes_les_questions.append({"nom": "Question indépendante", "questions": [question]})
-                    break
+        total_questions_complexes = sum(len(ex.get("questions", [])) for ex in exercices_complexes)
 
-    if exercice:
-        total_questions = sum(len(groupe.get("questions", [])) for groupe in toutes_les_questions)
-
-        if nombre_question > total_questions:
-            Liste = list(toutes_les_questions)
-
-            questions_independantes = []
-            for question in base.get("question", []):
-                mots_cles = question.get("mots_clés", "")
-                for mot in theme:
-                    if mot in mots_cles:
-                        questions_independantes.append({"nom": "Question indépendante", "questions": [question]})
-                        break
-
-            nb_manquantes = nombre_question - total_questions
-            Liste.extend(questions_independantes[:nb_manquantes])
+        if nombre_question > total_questions_complexes:
+            Liste_complexes = list(exercices_complexes)
+            nb_manquantes = nombre_question - total_questions_complexes
+            Liste_simples = exercices_simples[:nb_manquantes]
         else:
-            Liste = []
-            indices_deja_choisis = []
-            while len(Liste) < nombre_question:
-                index = random.randrange(len(toutes_les_questions))
-                if index not in indices_deja_choisis:
-                    Liste.append(toutes_les_questions[index])
-                    indices_deja_choisis.append(index)
+            Liste_complexes = []
+            indices_choisis = set()
+            while len(Liste_complexes) < nombre_question:
+                idx = random.randrange(len(exercices_complexes))
+                if idx not in indices_choisis:
+                    Liste_complexes.append(exercices_complexes[idx])
+                    indices_choisis.add(idx)
+            Liste_simples = []
+
+        Liste_complexes.sort(key=extraire_difficulte)
+
+        for groupe in Liste_complexes:
+            latex_code += groupe_to_latex(groupe, correction=False) + "\n"
+
+        if Liste_simples:
+            latex_code += "\\section*{Questions cours}\n"
+            for groupe in Liste_simples:
+                latex_code += groupe_to_latex(groupe, correction=False) + "\n"
+
     else:
-        if nombre_question >= len(toutes_les_questions):
-            Liste = list(toutes_les_questions)
-        else:
-            Liste = []
-            indices_deja_choisis = []
-            while len(Liste) < nombre_question:
-                index = random.randrange(len(toutes_les_questions))
-                if index not in indices_deja_choisis:
-                    Liste.append(toutes_les_questions[index])
-                    indices_deja_choisis.append(index)
-    Liste.sort(key=extraire_difficulte)
-    for groupe in Liste:
-        latex_code += groupe_to_latex(groupe, correction=False) + "\n"
+        Liste_simples = exercices_simples[:nombre_question]
+        latex_code += "\\section*{Questions cours}\n"
+        for groupe in Liste_simples:
+            latex_code += groupe_to_latex(groupe, correction=False) + "\n"
+
     ecrire_latex(latex_code, nom_fichier, date)
     final = generation_pdf(nom_fichier)
     if correction:
         correc = ""
-        for groupe in Liste:
-            correc += groupe_to_latex(groupe, correction=True) + "\n"
+        if exercice:
+            for groupe in Liste_complexes:
+                correc += groupe_to_latex(groupe, correction=True) + "\n"
+            if Liste_simples:
+                correc += "\\section*{Questions cours (les questions sont donc independantes)}\n"
+                for groupe in Liste_simples:
+                    correc += groupe_to_latex(groupe, correction=True) + "\n"
+        else:
+            correc += "\\section*{Questions cours (les questions sont donc independantes)}\n"
+            for groupe in Liste_simples:
+                correc += groupe_to_latex(groupe, correction=True) + "\n"
         ecrire_latex(correc, "corrige.tex", date)
         generation_pdf("corrige.tex")
+
     return final
