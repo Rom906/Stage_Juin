@@ -2,92 +2,6 @@ import yaml
 import subprocess
 import random
 
-
-def question_to_latex(q, correction=False):
-    latex = ""
-    if not q["libre"]:
-        if "image" in q:
-            latex += "\\section{" + q.get("section", "") + "}\n"
-            latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
-            latex += "\\begin{figure}[h]\n"
-            latex += "\\centering\n"
-            latex += "\\includegraphics[width=" + q.get("taille_image", "1.0") + "\\textwidth]{" + q["image"] + "}\n"
-            latex += "\\end{figure}\n"
-            latex += "\\enonce{" + q["enonce"] + "}\n"
-            latex += "\\setcounter{possibility}{0}\n"
-            latex += "\\possibilites{\n"
-
-            choix_mélangés = list(q["choix"])
-            random.shuffle(choix_mélangés)
-
-            for choix in choix_mélangés:
-                if choix["correct"]:
-                    if correction:
-                        latex += "    \\correct " + "\\textcolor{red}{" + choix["texte"] + "}\n"
-                    else:
-                        latex += "    \\leurre " + choix["texte"] + "\n"
-                else:
-                    latex += "    \\leurre " + choix["texte"] + "\n"
-            latex += "}\n"
-            if correction and "explication" in q:
-                latex += "\\renewcommand{\\pourquoi}{" + "\\textcolor{red}{" + q["explication"] + "}}\n"
-            else:
-                latex += "\\pourquoi{}\n"
-        else:
-            latex += "\\section{" + q.get("section", "") + "}\n"
-            latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
-            latex += "\\enonce{" + q["enonce"] + "}\n"
-            latex += "\\setcounter{possibility}{0}\n"
-            latex += "\\possibilites{\n"
-
-            choix_mélangés = list(q["choix"])
-            random.shuffle(choix_mélangés)
-
-            for choix in choix_mélangés:
-                if choix["correct"]:
-                    if correction:
-                        latex += "    \\correct " + "\\textcolor{red}{" + choix["texte"] + "}\n"
-                    else:
-                        latex += "    \\leurre " + choix["texte"] + "\n"
-                else:
-                    latex += "    \\leurre " + choix["texte"] + "\n"
-            latex += "}\n"
-            if correction and "explication" in q:
-                latex += "\\renewcommand{\\pourquoi}{" + "\\textcolor{red}{" + q["explication"] + "}}\n"
-            else:
-                latex += "\\pourquoi{}\n"
-    else:
-        if "image" in q:
-            latex += "\\section{" + q.get("section", "") + "}\n"
-            latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
-            latex += "\\begin{figure}[h]\n"
-            latex += "\\centering\n"
-            latex += "\\includegraphics[width=" + q.get("taille_image", "1.0") + "\\textwidth]{" + q["image"] + "}\n"
-            latex += "\\end{figure}\n"
-            latex += "\\enonce{" + q["enonce"] + "}\n"
-            latex += rf"""\noindent
-\begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
-\hline
-\parbox[t][{q["choix"]}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
-\\
-\hline
-\end{{tabular}}
-"""
-        else:
-            latex += "\\section{" + q.get("section", "") + "}\n"
-            latex += "\\difficulte{" + str(q["difficulte"]) + "}\n"
-            latex += "\\enonce{" + q["enonce"] + "}\n"
-            latex += rf"""\noindent
-\begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
-\hline
-\parbox[t][{q["choix"]}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
-\\
-\hline
-\end{{tabular}}
-"""
-    return latex
-
-
 def groupe_to_latex(groupe, correction=False):
 
     latex = ""
@@ -100,7 +14,7 @@ def groupe_to_latex(groupe, correction=False):
 
     for q in questions:
         if not isinstance(q, dict):
-            print("Warning: élément questions non dict détecté:", q)
+            print("Attention un element n'est pas un dictionnaire", q)
             continue
 
         if not q.get("libre", False):  # QCM
@@ -112,11 +26,9 @@ def groupe_to_latex(groupe, correction=False):
                 latex += "\\end{figure}\n"
 
             latex += "\\enonce{" + q["enonce"] + "}\n"
-            latex += "\\setcounter{possibility}{0}\n\\possibilites{\n"
-
+            latex += "\\setcounter{possibility}{0}\n\\possibilites{\n" # le compteur va changer si c'est la correction
             choix_mélangés = list(q.get("choix", []))
             random.shuffle(choix_mélangés)
-
             for choix in choix_mélangés:
                 texte = choix.get("texte", "") if isinstance(choix, dict) else str(choix)
                 correct = choix.get("correct", False) if isinstance(choix, dict) else False
@@ -135,7 +47,7 @@ def groupe_to_latex(groupe, correction=False):
             else:
                 latex += "\\pourquoi{}\n"
 
-        else:  # Question libre
+        elif q["libre"] and q.get("choix", True):  # Question libre (si il n'y a pas de choix mais seulement cadre)
             latex += "\\subsection*{" + q.get("id", "") + "}\n"
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
 
@@ -145,7 +57,41 @@ def groupe_to_latex(groupe, correction=False):
                 latex += "\\end{figure}\n"
 
             latex += "\\enonce{" + q["enonce"] + "}\n"
-            hauteur_zone = q.get("choix", "4cm")  # on utilise toujours "choix"
+            hauteur_zone = q.get("cadre", "4cm")  # au cas ou on a pas le cadre on fait en sorte que ça marche
+            latex += rf"""\noindent
+\begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
+\hline
+\parbox[t][{hauteur_zone}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
+\\
+\hline
+\end{{tabular}}
+"""     
+        else:
+            latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
+
+            if "image" in q:
+                latex += "\\begin{figure}[h]\n\\centering\n"
+                latex += "\\includegraphics[width=" + q.get("taille_image", "0.8") + "\\textwidth]{" + q["image"] + "}\n"
+                latex += "\\end{figure}\n"
+
+            latex += "\\enonce{" + q["enonce"] + "}\n"
+            latex += "\\setcounter{possibility}{0}\n\\possibilites{\n" # le compteur va changer si c'est la correction
+            choix_mélangés = list(q.get("choix", []))
+            random.shuffle(choix_mélangés)
+            for choix in choix_mélangés:
+                texte = choix.get("texte", "") if isinstance(choix, dict) else str(choix)
+                correct = choix.get("correct", False) if isinstance(choix, dict) else False
+
+                if correct:
+                    if correction:
+                        latex += "    \\correct \\textcolor{red}{" + texte + "}\n"
+                    else:
+                        latex += "    \\leurre " + texte + "\n"
+                else:
+                    latex += "    \\leurre " + texte + "\n"
+
+            latex += "}\n"
+            hauteur_zone = q.get("cadre", "4cm")  # au cas ou on a pas le cadre on fait en sorte que ça marche
             latex += rf"""\noindent
 \begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
 \hline
@@ -154,6 +100,10 @@ def groupe_to_latex(groupe, correction=False):
 \hline
 \end{{tabular}}
 """
+            if correction and "explication" in q:
+                latex += "\\renewcommand{\\pourquoi}{" + "\\textcolor{red}{" + q["explication"] + "}}\n"
+            else:
+                latex += "\\pourquoi{}\n"
     return latex
 
 
