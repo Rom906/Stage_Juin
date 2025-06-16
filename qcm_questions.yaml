@@ -85,7 +85,7 @@ exercices:
         difficulte: "3"
         cadre: "4cm"
   - nom: ""
-    mots_clés: ""
+    mots_clés: "POO"
     questions:
       - question: q01
         mots_clés: "POO"

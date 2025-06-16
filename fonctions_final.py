@@ -2,6 +2,7 @@ import yaml
 import subprocess
 import random
 
+
 def groupe_to_latex(groupe, correction=False):
 
     latex = ""
@@ -17,7 +18,7 @@ def groupe_to_latex(groupe, correction=False):
             print("Attention un element n'est pas un dictionnaire", q)
             continue
 
-        if not q.get("libre", False):  # QCM
+        if not q.get("libre", False):  # QCM classique
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
 
             if "image" in q:
@@ -26,7 +27,7 @@ def groupe_to_latex(groupe, correction=False):
                 latex += "\\end{figure}\n"
 
             latex += "\\enonce{" + q["enonce"] + "}\n"
-            latex += "\\setcounter{possibility}{0}\n\\possibilites{\n" # le compteur va changer si c'est la correction
+            latex += "\\setcounter{possibility}{0}\n\\possibilites{\n"
             choix_mélangés = list(q.get("choix", []))
             random.shuffle(choix_mélangés)
             for choix in choix_mélangés:
@@ -47,7 +48,7 @@ def groupe_to_latex(groupe, correction=False):
             else:
                 latex += "\\pourquoi{}\n"
 
-        elif q["libre"] and q.get("choix", True):  # Question libre (si il n'y a pas de choix mais seulement cadre)
+        elif q["libre"]:  # Question libre (avec ou sans choix)
             latex += "\\subsection*{" + q.get("id", "") + "}\n"
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
 
@@ -57,7 +58,27 @@ def groupe_to_latex(groupe, correction=False):
                 latex += "\\end{figure}\n"
 
             latex += "\\enonce{" + q["enonce"] + "}\n"
-            hauteur_zone = q.get("cadre", "4cm")  # au cas ou on a pas le cadre on fait en sorte que ça marche
+
+            # Si la question libre contient des choix, on les affiche comme un QCM
+            if "choix" in q:
+                latex += "\\setcounter{possibility}{0}\n\\possibilites{\n"
+                choix_mélangés = list(q.get("choix", []))
+                random.shuffle(choix_mélangés)
+                for choix in choix_mélangés:
+                    texte = choix.get("texte", "") if isinstance(choix, dict) else str(choix)
+                    correct = choix.get("correct", False) if isinstance(choix, dict) else False
+
+                    if correct:
+                        if correction:
+                            latex += "    \\correct \\textcolor{red}{" + texte + "}\n"
+                        else:
+                            latex += "    \\leurre " + texte + "\n"
+                    else:
+                        latex += "    \\leurre " + texte + "\n"
+                latex += "}\n"
+
+            # Toujours afficher la zone cadre vide pour la justification
+            hauteur_zone = q.get("cadre", "4cm")
             latex += rf"""\noindent
 \begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
 \hline
@@ -65,8 +86,9 @@ def groupe_to_latex(groupe, correction=False):
 \\
 \hline
 \end{{tabular}}
-"""     
+"""
         else:
+            # Cas général (pas vraiment utilisé avec ta structure)
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
 
             if "image" in q:
@@ -75,7 +97,7 @@ def groupe_to_latex(groupe, correction=False):
                 latex += "\\end{figure}\n"
 
             latex += "\\enonce{" + q["enonce"] + "}\n"
-            latex += "\\setcounter{possibility}{0}\n\\possibilites{\n" # le compteur va changer si c'est la correction
+            latex += "\\setcounter{possibility}{0}\n\\possibilites{\n"
             choix_mélangés = list(q.get("choix", []))
             random.shuffle(choix_mélangés)
             for choix in choix_mélangés:
@@ -91,7 +113,7 @@ def groupe_to_latex(groupe, correction=False):
                     latex += "    \\leurre " + texte + "\n"
 
             latex += "}\n"
-            hauteur_zone = q.get("cadre", "4cm")  # au cas ou on a pas le cadre on fait en sorte que ça marche
+            hauteur_zone = q.get("cadre", "4cm")
             latex += rf"""\noindent
 \begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
 \hline
