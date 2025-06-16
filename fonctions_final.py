@@ -5,7 +5,6 @@ import random
 
 def groupe_to_latex(groupe, correction=False, exercice=True):
     latex = ""
-    
     if "questions" in groupe:
         if "nom" in groupe and groupe["nom"]:
             latex += "\\section*{" + groupe["nom"] + "}\n"
@@ -19,6 +18,7 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
         if not isinstance(q, dict):
             print("Attention, un élément n'est pas un dictionnaire:", q)
             continue
+        # QCM 
         if not q.get("libre", False):
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
 
@@ -63,7 +63,7 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
 
             latex += "\\enonce{" + q["enonce"] + "}\n"
 
-            if "choix" in q and q["choix"]:
+            if "choix" in q:
                 latex += "\\begin{center}\n\\fbox{%\n\\begin{minipage}{0.9\\linewidth}\n"
                 latex += "\\setcounter{possibility}{0}\n\\possibilites{\n"
 
@@ -79,7 +79,8 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
                             latex += "    \\leurre " + texte + "\n"
                     else:
                         latex += "    \\leurre " + texte + "\n"
-
+                if correction:
+                    latex += "\\textcolor{red}{" + q.get("explication","") + "}\n"
                 latex += "}\n\\end{minipage}}\n\\end{center}\n"
 
             hauteur_zone = q.get("cadre", "4cm")
@@ -91,12 +92,11 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
 \hline
 \end{{tabular}}
 """
-
         else:
-            # Sécurité en plus au cas ou 
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
             latex += "\\enonce{" + q["enonce"] + "}\n"
 
+        latex += "\n\\vspace{1cm}\n"
     return latex
 
 
