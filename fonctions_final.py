@@ -79,19 +79,30 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
                             latex += "    \\leurre " + texte + "\n"
                     else:
                         latex += "    \\leurre " + texte + "\n"
-                if correction:
-                    latex += "\\textcolor{red}{" + q.get("explication","") + "}\n"
+                
                 latex += "}\n\\end{minipage}}\n\\end{center}\n"
+            if correction:
+                explications = "\\textcolor{red}{" + q.get("explication", "") + "}\n"
 
-            hauteur_zone = q.get("cadre", "4cm")
-            latex += rf"""\noindent
-\begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
-\hline
-\parbox[t][{hauteur_zone}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
-\\
-\hline
-\end{{tabular}}
-"""
+                hauteur_zone = q.get("cadre", "4cm")
+                latex += rf"""\noindent
+    \begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
+    \hline
+    \parbox[t][{hauteur_zone}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{{explications}}}
+    \\
+    \hline
+    \end{{tabular}}
+    """
+            else:
+                hauteur_zone = q.get("cadre", "4cm")
+                latex += rf"""\noindent
+    \begin{{tabular}}{{|p{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}|}}
+    \hline
+    \parbox[t][{hauteur_zone}][c]{{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth}}{{}}
+    \\
+    \hline
+    \end{{tabular}}
+    """
         else:
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
             latex += "\\enonce{" + q["enonce"] + "}\n"
