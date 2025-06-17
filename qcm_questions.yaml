@@ -142,3 +142,4 @@ exercices:
         enonce: "Ecrire le diagramme d'une classe théorique que l'on pourra appeler jeu video donner des attribut et methode en accord avec le nom de cette classe"
         libre: true
         cadre: "4cm"
+        explication: "C'est du cours"
