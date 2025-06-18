@@ -327,24 +327,27 @@ def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str
         generation_pdf("corrige.tex")
     # Sauvegarde des questions sélectionnées dans un YAML
     exam_yaml = {"exercices": []}
-    compteur = 1
-    for exo in Liste_complexes + Liste_simples:
-        nouveau_exo = {
-            "nom": exo.get("nom", ""),
-            "mots_clés": exo.get("mots_clés", ""),
-            "questions": [],
+    numero_exercice = 1
+    liste_exercices_selectionnes = Liste_complexes + Liste_simples
+    for exercice in liste_exercices_selectionnes:
+        exercice_yaml = {
+            "nom": exercice.get("nom", ""),
+            "mots_clés": exercice.get("mots_clés", ""),
+            "questions": []
         }
-        questions = exo.get("questions", [])
-        sous_compteur = 1
-        for q in questions:
-            question_num = f"{compteur}.{sous_compteur}" if len(questions) > 1 else f"{compteur}"
-            nouvelle_question = dict(q)  # copie superficielle
-            nouvelle_question["question"] = question_num
-            nouveau_exo["questions"].append(nouvelle_question)
-            sous_compteur += 1
-        exam_yaml["exercices"].append(nouveau_exo)
-        compteur += 1
-    with open("examen_selection.yaml", "w", encoding="utf-8") as f_out:
-        yaml.dump(exam_yaml, f_out, sort_keys=False, allow_unicode=True)
-
+        questions = exercice.get("questions", [])
+        numero_question = 1
+        for question in questions:
+            if len(questions) > 1:
+                identifiant_question = f"{numero_exercice}.{numero_question}"
+            else:
+                identifiant_question = f"{numero_exercice}"
+            nouvelle_question = dict(question)
+            nouvelle_question["question"] = identifiant_question
+            exercice_yaml["questions"].append(nouvelle_question)
+            numero_question += 1
+            exam_yaml["exercices"].append(exercice_yaml)
+            numero_exercice += 1
+    with open("examen_selection.yaml", "w", encoding="utf-8") as fichier_yaml:
+        yaml.dump(exam_yaml, fichier_yaml, sort_keys=False, allow_unicode=True)
     return final
