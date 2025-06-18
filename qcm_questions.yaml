@@ -20,7 +20,6 @@ exercices:
         difficulte: "1"
         cadre: "4cm"
 
-
       - question: "1.2"
         enonce: Donnez la complexité de l'algorithme mul en fonction de x.
         libre: true
@@ -57,7 +56,7 @@ exercices:
         enonce: "Montrez que l'algorithme mul2(T: [bit]) permet de multiplier par deux en place un entier."
         libre: true
         difficulte: "2"
-        cadre: "4cm"
+        cadre: "15cm"
 
       - question: "2.3"
         enonce: "Donnez un algorithme div2(T: [bit]) ainsi que sa complexité permettant de diviser par deux un entier représenté en binaire."

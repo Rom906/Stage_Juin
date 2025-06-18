@@ -21,7 +21,6 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
         # QCM 
         if not q.get("libre", False):
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
-
             if "image" in q:
                 latex += "\\begin{figure}[h]\n\\centering\n"
                 latex += "\\includegraphics[width=" + q.get("taille_image", "0.8") + "\\textwidth]{" + q["image"] + "}\n"
@@ -275,8 +274,10 @@ def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str
     exercices_complexes = [ex for ex in exercices if len(ex.get("questions", [])) > 1]
 
     if exercice:
-        total_questions_complexes = sum(len(ex.get("questions", [])) for ex in exercices_complexes)
-
+        total_questions_complexes = 0
+        for exercice in exercices_complexes:
+            questions = exercice.get("questions", [])
+            total_questions_complexes = total_questions_complexes + len(questions)
         if nombre_question > total_questions_complexes:
             Liste_complexes = list(exercices_complexes)
             nb_manquantes = nombre_question - total_questions_complexes
@@ -324,5 +325,26 @@ def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str
                 correc += groupe_to_latex(groupe, correction=True) + "\n"
         ecrire_latex(correc, "corrige.tex", date)
         generation_pdf("corrige.tex")
+    # Sauvegarde des questions sélectionnées dans un YAML
+    exam_yaml = {"exercices": []}
+    compteur = 1
+    for exo in Liste_complexes + Liste_simples:
+        nouveau_exo = {
+            "nom": exo.get("nom", ""),
+            "mots_clés": exo.get("mots_clés", ""),
+            "questions": [],
+        }
+        questions = exo.get("questions", [])
+        sous_compteur = 1
+        for q in questions:
+            question_num = f"{compteur}.{sous_compteur}" if len(questions) > 1 else f"{compteur}"
+            nouvelle_question = dict(q)  # copie superficielle
+            nouvelle_question["question"] = question_num
+            nouveau_exo["questions"].append(nouvelle_question)
+            sous_compteur += 1
+        exam_yaml["exercices"].append(nouveau_exo)
+        compteur += 1
+    with open("examen_selection.yaml", "w", encoding="utf-8") as f_out:
+        yaml.dump(exam_yaml, f_out, sort_keys=False, allow_unicode=True)
 
     return final

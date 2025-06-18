@@ -1,3 +1,6 @@
-- correction pour tout (fait)
+- correction pour tout (fait) (attention à la taille de l'explication de la correction)
 - liste pour les tags (à faire)
-- latex à incorporer (en cours)
+- latex à incorporer (en cours) attention avec les commentaires
+- creer un nouveau yaml (à faire) pour la generation de mon latex
+- nom questions cours doit etre un paramètre !! 
+- package à incorporer à verifier dans une liste
