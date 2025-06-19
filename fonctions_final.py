@@ -1,6 +1,7 @@
 import yaml
 import subprocess
 import random
+from fonctions_base_données import charger_questions
 
 
 def groupe_to_latex(groupe, correction=False, exercice=True):
@@ -266,8 +267,7 @@ def extraire_difficulte(q):
 
 
 def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str, correction: bool, exercice=False, base_donnée="qcm_questions.yaml", titre_cours="Question de cours",):
-    with open(base_donnée, "r", encoding="utf-8") as fichier:
-        base = yaml.safe_load(fichier)
+    base = charger_questions(base_donnée)
     package = ["inputenc", "graphicx", "enumitem", "amssymb", "tabularx", "calc", "cprotect", "xcolor", "geometry", "fancybox", "pifont", "ifthen"]
     latex_code = ""
     tous_les_exercices = base.get("exercices", [])
@@ -323,8 +323,9 @@ def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str
     liste_package = []
     for question in exercices_simples + Liste_complexes:
         if question.get("package", False):
-            if not question["package"] in package:
-                liste_package.append(question["package"])
+            for pack in question["package"]:
+                if not pack in package:
+                    liste_package.append(question["package"])
 
     ecrire_latex(latex_code, nom_fichier, date, liste_package)
     final = generation_pdf(nom_fichier)

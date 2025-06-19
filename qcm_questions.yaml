@@ -3,23 +3,11 @@ exercices:
     mots_clés: "Algorithmie"
     questions:
       - question: "1.1"
-        enonce: "
-          programme mul(x: entier, y: entier) → entier:
-              r ← 0
-              tant que x != 0:
-                  si x est impair:
-                      x ← x - 1
-                      r ← r + y
-                  x ← x / 2
-                  y ← y * 2
-              
-              rendre r
-
-          Montrer que le programme mul est un algorithme."
+        enonce: "prime.tex"
         libre: true
         difficulte: "1"
         cadre: "4cm"
-        package: "calc"
+        package: ["calc"]
 
       - question: "1.2"
         enonce: Donnez la complexité de l'algorithme mul en fonction de x.
