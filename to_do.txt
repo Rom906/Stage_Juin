@@ -3,4 +3,4 @@
 - latex à incorporer (en cours) faire avec les commentaires
 - ~~creer un nouveau yaml (fait)~~
 - ~~nom questions cours doit etre un paramètre !! (fait)~~
-- package à incorporer à verifier dans une liste (fait)
+- ~~package à incorporer à verifier dans une liste (fait)~~
