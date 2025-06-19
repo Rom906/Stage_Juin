@@ -262,8 +262,8 @@ def extraire_difficulte(q):
         return 1
 
 
-def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str, correction: bool, exercice=False):
-    with open("qcm_questions.yaml", "r", encoding="utf-8") as fichier:
+def generate_exam(base_donnée="qcm_questions.yaml", nombre_question: int, theme: list, nom_fichier: str, date: str, correction: bool, exercice=False):
+    with open(base_donnée, "r", encoding="utf-8") as fichier:
         base = yaml.safe_load(fichier)
 
     latex_code = ""
