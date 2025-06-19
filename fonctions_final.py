@@ -265,14 +265,24 @@ def extraire_difficulte(q):
 def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str, correction: bool, exercice=False, base_donnée="qcm_questions.yaml", titre_cours="Question de cours",):
     with open(base_donnée, "r", encoding="utf-8") as fichier:
         base = yaml.safe_load(fichier)
-
+    Package = ["inputenc", "graphicx", "enumitem", "amssymb", "tabularx", "calc", "cprotect", "xcolor", "geometry", "fancybox", "pifont", "ifthen"]
     latex_code = ""
-
-    exercices = [g for g in base.get("exercices", []) if any(t in g.get("mots_clés", "") for t in theme)]
-
-    exercices_simples = [ex for ex in exercices if len(ex.get("questions", [])) == 1]
-    exercices_complexes = [ex for ex in exercices if len(ex.get("questions", [])) > 1]
-
+    tous_les_exercices = base.get("exercices", [])
+    exercices = []
+    for exercice in tous_les_exercices:
+        mots_cles = exercice.get("mots_clés", "")
+        for mot in theme:
+            if mot in mots_cles:
+                exercices.append(exercice)
+                break
+    exercices_simples = []
+    exercices_complexes = []
+    for exercice in exercices:
+        questions = exercice.get("questions", [])
+        if len(questions) == 1:
+            exercices_simples.append(exercice)
+        elif len(questions) > 1:
+            exercices_complexes.append(exercice)
     if exercice:
         total_questions_complexes = 0
         for exercice in exercices_complexes:
