@@ -2,5 +2,5 @@
 - liste pour les tags (à faire) attention systeme complexe
 - latex à incorporer (en cours) attention avec les commentaires
 - creer un nouveau yaml (fait)
-- nom questions cours doit etre un paramètre !! 
-- package à incorporer à verifier dans une liste
+- nom questions cours doit etre un paramètre !! (fait)
+- package à incorporer à verifier dans une liste (à faire)

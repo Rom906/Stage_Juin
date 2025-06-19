@@ -316,11 +316,11 @@ def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str
             for groupe in Liste_complexes:
                 correc += groupe_to_latex(groupe, correction=True) + "\n"
             if Liste_simples:
-                correc += "\\section*{Questions cours (les questions sont donc independantes)}\n"
+                correc += "\\section*{" + titre_cours + "}\n"
                 for groupe in Liste_simples:
                     correc += groupe_to_latex(groupe, correction=True) + "\n"
         else:
-            correc += "\\section*{Questions cours (les questions sont donc independantes)}\n"
+            correc += "\\section*{" + titre_cours +"}\n"
             for groupe in Liste_simples:
                 correc += groupe_to_latex(groupe, correction=True) + "\n"
         ecrire_latex(correc, "corrige.tex", date)
