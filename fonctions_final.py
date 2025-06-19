@@ -262,7 +262,7 @@ def extraire_difficulte(q):
         return 1
 
 
-def generate_exam(base_donnée="qcm_questions.yaml", nombre_question: int, theme: list, nom_fichier: str, date: str, correction: bool, exercice=False):
+def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str, correction: bool, exercice=False, base_donnée="qcm_questions.yaml", titre_cours="Question de cours",):
     with open(base_donnée, "r", encoding="utf-8") as fichier:
         base = yaml.safe_load(fichier)
 
@@ -298,13 +298,13 @@ def generate_exam(base_donnée="qcm_questions.yaml", nombre_question: int, theme
             latex_code += groupe_to_latex(groupe, correction=False) + "\n"
 
         if Liste_simples:
-            latex_code += "\\section*{Questions cours}\n"
+            latex_code += "\\section*{" + titre_cours + "}\n"
             for groupe in Liste_simples:
                 latex_code += groupe_to_latex(groupe, correction=False) + "\n"
 
     else:
         Liste_simples = exercices_simples[:nombre_question]
-        latex_code += "\\section*{Questions cours}\n"
+        latex_code += "\\section*{" + titre_cours + "}\n"
         for groupe in Liste_simples:
             latex_code += groupe_to_latex(groupe, correction=False) + "\n"
 
