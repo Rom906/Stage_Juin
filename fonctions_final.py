@@ -109,14 +109,17 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
     return latex
 
 
-def ecrire_latex(contenu_questions, nom_fichier, date, correction=False):
+def ecrire_latex(contenu_questions, nom_fichier, date, correction=False, packages=[]):
     date_2 = date.strftime("%d-%m-%Y")
     preambule = r"""\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx}
+\usepackage{graphicx}"""
+    total = ""
+    for i in range(len(packages)):
+        total += "\\usepackage{" + packages[i] + "}\n"
+    premabule21 = total + r"""
 \usepackage{enumitem,amssymb}
 \usepackage{tabularx}
-\usepackage{calc}
 \usepackage{cprotect}
 \usepackage{xcolor}
 \usepackage[a4paper,textwidth=16cm,top=2cm,bottom=2cm,headheight=25pt,headsep=12pt,footskip=25pt]{geometry}
@@ -232,7 +235,7 @@ Barème. Pour chaque question :
 \end{itemize}
 \newpage
 """
-    preambule = preambule + preambule4 + preambule5 + preambule2 + preambule3
+    preambule = preambule + premabule21 + preambule4 + preambule5 + preambule2 + preambule3 
     with open(nom_fichier, "w", encoding="utf-8") as fichier:
         fichier.write(preambule)
         fichier.write(contenu_questions)
@@ -265,7 +268,7 @@ def extraire_difficulte(q):
 def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str, correction: bool, exercice=False, base_donnée="qcm_questions.yaml", titre_cours="Question de cours",):
     with open(base_donnée, "r", encoding="utf-8") as fichier:
         base = yaml.safe_load(fichier)
-    Package = ["inputenc", "graphicx", "enumitem", "amssymb", "tabularx", "calc", "cprotect", "xcolor", "geometry", "fancybox", "pifont", "ifthen"]
+    package = ["inputenc", "graphicx", "enumitem", "amssymb", "tabularx", "calc", "cprotect", "xcolor", "geometry", "fancybox", "pifont", "ifthen"]
     latex_code = ""
     tous_les_exercices = base.get("exercices", [])
     exercices = []
@@ -317,8 +320,13 @@ def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str
         latex_code += "\\section*{" + titre_cours + "}\n"
         for groupe in Liste_simples:
             latex_code += groupe_to_latex(groupe, correction=False) + "\n"
+    liste_package = []
+    for question in exercices_simples + Liste_complexes:
+        if question.get("package", False):
+            if not question["package"] in package:
+                liste_package.append(question["package"])
 
-    ecrire_latex(latex_code, nom_fichier, date)
+    ecrire_latex(latex_code, nom_fichier, date, liste_package)
     final = generation_pdf(nom_fichier)
     if correction:
         correc = ""

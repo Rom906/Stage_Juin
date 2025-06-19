@@ -19,6 +19,7 @@ exercices:
         libre: true
         difficulte: "1"
         cadre: "4cm"
+        package: "calc"
 
       - question: "1.2"
         enonce: Donnez la complexité de l'algorithme mul en fonction de x.
