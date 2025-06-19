@@ -165,7 +165,7 @@ def ecrire_latex(contenu_questions, nom_fichier, date, correction=False):
 
 \newcommand{\difficulte}[1]{%
   Difficulté : 
-  \ifthenelse{#1 > 1 \or #1 = 1}{\ding{72}}{\ding{73}} 
+  \ifthenelse{#1 > 1 \or #1 = 1}{\ding{72}}{\ding{73}}
   \ifthenelse{#1 > 2 \or #1 = 2}{\ding{72}}{\ding{73}}
   \ifthenelse{#1 > 3 \or #1 = 3}{\ding{72}}{\ding{73}}
   \ifthenelse{#1 > 3}{S}{}%
