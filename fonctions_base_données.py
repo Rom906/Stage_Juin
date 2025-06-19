@@ -19,19 +19,31 @@ def combiner(base1, base2, sortie):
     return resultat_final
 
 
-# combiner("test.yaml", "test2.yaml", "resultat2.yaml")
-
+# combiner("test.yaml", "test2.yaml", "resultat2.yaml"
 
 def charger_questions(fichier_yaml):
     dossier = os.path.dirname(fichier_yaml)
-
     with open(fichier_yaml, 'r', encoding='utf-8') as fichier:
         base = yaml.safe_load(fichier)
     for exercice in base.get('exercices', []):
         for question in exercice.get('questions', []):
             enonce = question.get('enonce', '')
-            chemin_enonce = os.path.join(dossier, enonce)
-            if enonce.endswith('.tex') and os.path.isfile(chemin_enonce):
-                with open(chemin_enonce, 'r', encoding='utf-8') as f_tex:
-                    question['enonce'] = f_tex.read()
+            if enonce.endswith('.tex'):
+                chemin_enonce = os.path.join(dossier, enonce)
+                if os.path.isfile(chemin_enonce):
+                    with open(chemin_enonce, 'r', encoding='utf-8') as f_tex:
+                        lignes = f_tex.readlines()
+                    lignes_utiles = []
+                    dedans = False
+                    for ligne in lignes:
+                        if ligne.strip().startswith('% QUESTION'):
+                            dedans = True
+                            continue
+                        if ligne.strip().startswith('% FIN'):
+                            dedans = False
+                            break 
+                        if dedans:
+                            lignes_utiles.append(ligne)
+                    question['enonce'] = ''.join(lignes_utiles)
+
     return base
