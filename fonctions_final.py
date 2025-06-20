@@ -1,7 +1,7 @@
 import yaml
 import subprocess
 import random
-from fonctions_base_données import charger_questions
+from fonctions_base_données import charger_questions, filtre_exercices
 
 
 def groupe_to_latex(groupe, correction=False, exercice=True):
@@ -266,18 +266,12 @@ def extraire_difficulte(q):
         return 1
 
 
-def generate_exam(nombre_question: int, theme: list, nom_fichier: str, date: str, correction: bool, exercice=False, base_donnée="qcm_questions.yaml", titre_cours="Question de cours",):
+def generate_exam(nombre_question: int, theme: list, mode: str, nom_fichier: str, date: str, correction: bool, exercice=False, base_donnée="qcm_questions.yaml", titre_cours="Question de cours",):
     base = charger_questions(base_donnée)
     package = ["inputenc", "graphicx", "enumitem", "amssymb", "tabularx", "calc", "cprotect", "xcolor", "geometry", "fancybox", "pifont", "ifthen"]
     latex_code = ""
     tous_les_exercices = base.get("exercices", [])
-    exercices = []
-    for exercice in tous_les_exercices:
-        mots_cles = exercice.get("mots_clés", "")
-        for mot in theme:
-            if mot in mots_cles:
-                exercices.append(exercice)
-                break
+    exercices = filtre_exercices(tous_les_exercices, theme, mode=mode)
     exercices_simples = []
     exercices_complexes = []
     for exercice in exercices:

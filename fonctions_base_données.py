@@ -47,3 +47,52 @@ def charger_questions(fichier_yaml):
                     question['enonce'] = ''.join(lignes_utiles)
 
     return base
+
+
+def est_sous_liste(petits, grands):
+    for element in petits:
+        if element not in grands:
+            return False
+    return True
+
+
+def filtre_exercices(exercices, tags_recherches, mode="AND"):
+    """
+    Filtre la liste d'exercices selon les tags recherchés et le mode choisi.
+
+    - mode "AND" : tous les tags doivent être présents
+    - mode "OR" : au moins un tag doit être présent
+    - mode "AND_SPECIAL" : 
+         soit tous les tags sont présents,
+         soit l'exercice a exactement un tag parmi les tags recherchés (aucun autre tag)
+    """
+    exercices_filtres = []
+
+    for exercice in exercices:
+        tags = exercice.get("mots_clés", [])
+        if isinstance(tags, str):
+            tags = [tags]
+
+        if mode == "AND":
+            if est_sous_liste(tags_recherches, tags):
+                exercices_filtres.append(exercice)
+
+        elif mode == "OR":
+            trouve = False
+            for t in tags_recherches:
+                if t in tags:
+                    trouve = True
+                    break
+            if trouve:
+                exercices_filtres.append(exercice)
+
+        elif mode == "AND_SPECIAL":
+            condition_1 = est_sous_liste(tags_recherches, tags)
+            condition_2 = (len(tags) == 1) and (tags[0] in tags_recherches)
+            if condition_1 or condition_2:
+                exercices_filtres.append(exercice)
+
+        else:
+            raise ValueError(f"Mode inconnu : {mode}")
+
+    return exercices_filtres

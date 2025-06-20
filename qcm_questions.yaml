@@ -1,6 +1,6 @@
 exercices:
   - nom: "Un algorithme de multiplication"
-    mots_clés: "Algorithmie"
+    mots_clés: ["Algorithmie"]
     questions:
       - question: "1.1"
         enonce: "prime.tex"
@@ -22,7 +22,7 @@ exercices:
         cadre: "4cm"
 
   - nom: "Représentation binaire des nombres"
-    mots_clés: "Algorithmie"
+    mots_clés: ["Algorithmie"]
     questions:
       - question: "2.1"
         enonce: "Comment savoir si l'entier représenté par un tableau de bits est pair ?"
@@ -90,10 +90,10 @@ exercices:
         explication: "C'est du cours"
         cadre: "4 cm"
   - nom: ""
-    mots_clés: "POO"
+    mots_clés: ["POO"]
     questions:
       - question: q02
-        mots_clés: "POO"
+        mots_clés: ["POO"]
         difficulte: "1"
         enonce: "Je permets à un objet d'être différent d'un autre objet de la même classe. Je suis~:"
         libre: False
@@ -105,10 +105,10 @@ exercices:
           - texte: "un design patern"
             correct: false
   - nom: ""
-    mots_clés: "POO"
+    mots_clés: ["POO"]
     questions:
       - question: q03
-        mots_clés: "POO"
+        mots_clés: ["POO"]
         difficulte: "1"
         enonce: "Qui est le plus important entre le main, les tests et les fonctions?"
         libre: false
@@ -120,10 +120,10 @@ exercices:
           - texte: "Les fonctions"
             correct: true
   - nom: ""
-    mots_clés: "POO"
+    mots_clés: ["POO"]
     questions:
       - question: q04
-        mots_clés: "POO"
+        mots_clés: ["POO"]
         image: "image.png"
         taille_image: "0.5"
         difficulte: "2"
