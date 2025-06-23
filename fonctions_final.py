@@ -19,12 +19,18 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
         if not isinstance(q, dict):
             print("Attention, un élément n'est pas un dictionnaire:", q)
             continue
-        # QCM 
+        # QCM
         if not q.get("libre", False):
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
             if "image" in q:
                 latex += "\\begin{figure}[h]\n\\centering\n"
-                latex += "\\includegraphics[width=" + q.get("taille_image", "0.8") + "\\textwidth]{" + q["image"] + "}\n"
+                latex += (
+                    "\\includegraphics[width="
+                    + q.get("taille_image", "0.8")
+                    + "\\textwidth]{"
+                    + q["image"]
+                    + "}\n"
+                )
                 latex += "\\end{figure}\n"
 
             latex += "\\enonce{" + q["enonce"] + "}\n"
@@ -34,8 +40,12 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
             choix_melanges = list(q.get("choix", []))
             random.shuffle(choix_melanges)
             for choix in choix_melanges:
-                texte = choix.get("texte", "") if isinstance(choix, dict) else str(choix)
-                correct = choix.get("correct", False) if isinstance(choix, dict) else False
+                texte = (
+                    choix.get("texte", "") if isinstance(choix, dict) else str(choix)
+                )
+                correct = (
+                    choix.get("correct", False) if isinstance(choix, dict) else False
+                )
                 if correct:
                     if correction:
                         latex += "    \\correct \\textcolor{red}{" + texte + "}\n"
@@ -47,7 +57,12 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
             latex += "}\n\\end{minipage}}\n\\end{center}\n"
 
             if correction and "explication" in q:
-                latex += "\\renewcommand{\\pourquoi}{" + "\\textcolor{red}{" + q["explication"] + "}}\n"
+                latex += (
+                    "\\renewcommand{\\pourquoi}{"
+                    + "\\textcolor{red}{"
+                    + q["explication"]
+                    + "}}\n"
+                )
             else:
                 latex += "\\pourquoi{}\n"
 
@@ -58,20 +73,36 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
 
             if "image" in q:
                 latex += "\\begin{figure}[h]\n\\centering\n"
-                latex += "\\includegraphics[width=" + q.get("taille_image", "0.8") + "\\textwidth]{" + q["image"] + "}\n"
+                latex += (
+                    "\\includegraphics[width="
+                    + q.get("taille_image", "0.8")
+                    + "\\textwidth]{"
+                    + q["image"]
+                    + "}\n"
+                )
                 latex += "\\end{figure}\n"
 
             latex += "\\enonce{" + q["enonce"] + "}\n"
 
             if "choix" in q:
-                latex += "\\begin{center}\n\\fbox{%\n\\begin{minipage}{0.9\\linewidth}\n"
+                latex += (
+                    "\\begin{center}\n\\fbox{%\n\\begin{minipage}{0.9\\linewidth}\n"
+                )
                 latex += "\\setcounter{possibility}{0}\n\\possibilites{\n"
 
                 choix_melanges = list(q.get("choix", []))
                 random.shuffle(choix_melanges)
                 for choix in choix_melanges:
-                    texte = choix.get("texte", "") if isinstance(choix, dict) else str(choix)
-                    correct = choix.get("correct", False) if isinstance(choix, dict) else False
+                    texte = (
+                        choix.get("texte", "")
+                        if isinstance(choix, dict)
+                        else str(choix)
+                    )
+                    correct = (
+                        choix.get("correct", False)
+                        if isinstance(choix, dict)
+                        else False
+                    )
                     if correct:
                         if correction:
                             latex += "    \\correct \\textcolor{red}{" + texte + "}\n"
@@ -118,7 +149,9 @@ def ecrire_latex(contenu_questions, nom_fichier, date, correction=False, package
     total = ""
     for i in range(len(packages)):
         total += "\\usepackage{" + packages[i] + "}\n"
-    premabule21 = total + r"""
+    premabule21 = (
+        total
+        + r"""
 \usepackage{enumitem,amssymb}
 \usepackage{tabularx}
 \usepackage{cprotect}
@@ -134,6 +167,7 @@ def ecrire_latex(contenu_questions, nom_fichier, date, correction=False, package
 
 \newcommand{\corrige}{0}
 \newcounter{possibility}"""
+    )
     if correction:
         preambule4 = r"""
     \newcommand{{\correct}}{%
@@ -236,7 +270,9 @@ Barème. Pour chaque question :
 \end{itemize}
 \newpage
 """
-    preambule = preambule + premabule21 + preambule4 + preambule5 + preambule2 + preambule3 
+    preambule = (
+        preambule + premabule21 + preambule4 + preambule5 + preambule2 + preambule3
+    )
     with open(nom_fichier, "w", encoding="utf-8") as fichier:
         fichier.write(preambule)
         fichier.write(contenu_questions)
@@ -266,9 +302,32 @@ def extraire_difficulte(q):
         return 1
 
 
-def generate_exam(nombre_question: int, theme: list, mode: str, nom_fichier: str, date: str, correction: bool, exercice=False, base_donnée="qcm_questions.yaml", titre_cours="Question de cours",):
+def generate_exam(
+    nombre_question: int,
+    theme: list,
+    mode: str,
+    nom_fichier: str,
+    date: str,
+    correction: bool,
+    exercice=False,
+    base_donnée="qcm_questions.yaml",
+    titre_cours="Question de cours",
+):
     base = charger_questions(base_donnée)
-    package = ["inputenc", "graphicx", "enumitem", "amssymb", "tabularx", "calc", "cprotect", "xcolor", "geometry", "fancybox", "pifont", "ifthen"]
+    package = [
+        "inputenc",
+        "graphicx",
+        "enumitem",
+        "amssymb",
+        "tabularx",
+        "calc",
+        "cprotect",
+        "xcolor",
+        "geometry",
+        "fancybox",
+        "pifont",
+        "ifthen",
+    ]
     latex_code = ""
     tous_les_exercices = base.get("exercices", [])
     exercices = filtre_exercices(tous_les_exercices, theme, mode=mode)
@@ -333,7 +392,7 @@ def generate_exam(nombre_question: int, theme: list, mode: str, nom_fichier: str
                 for groupe in Liste_simples:
                     correc += groupe_to_latex(groupe, correction=True) + "\n"
         else:
-            correc += "\\section*{" + titre_cours +"}\n"
+            correc += "\\section*{" + titre_cours + "}\n"
             for groupe in Liste_simples:
                 correc += groupe_to_latex(groupe, correction=True) + "\n"
         ecrire_latex(correc, "corrige.tex", date)
@@ -346,7 +405,7 @@ def generate_exam(nombre_question: int, theme: list, mode: str, nom_fichier: str
         exercice_yaml = {
             "nom": exercice.get("nom", ""),
             "mots_clés": exercice.get("mots_clés", ""),
-            "questions": []
+            "questions": [],
         }
         questions = exercice.get("questions", [])
         numero_question = 1
