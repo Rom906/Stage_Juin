@@ -141,7 +141,9 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
     return latex
 
 
-def ecrire_latex(contenu_questions, nom_fichier, date, titre, correction=False, packages=[]):
+def ecrire_latex(
+    contenu_questions, nom_fichier, date, titre, correction=False, packages=[]
+):
     date_2 = date.strftime("%d-%m-%Y")
     preambule = r"""\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
@@ -228,10 +230,14 @@ def ecrire_latex(contenu_questions, nom_fichier, date, titre, correction=False, 
   {\textsc{\'Ecole Centrale Marseille}}\vspace{0.1cm}
   \\
 
-    {\bf {\Large""" 
-    preambule22 = " " + titre + r"""}}\\%\vspace{0.2cm}
+    {\bf {\Large"""
+    preambule22 = (
+        " "
+        + titre
+        + r"""}}\\%\vspace{0.2cm}
     \\
     {\bf  { Contrôle 1A }}\\"""
+    )
     preambule2 = r"""
     {{\footnotesize {}}}\\""".format(
         date_2
@@ -273,7 +279,13 @@ Barème. Pour chaque question :
 \newpage
 """
     preambule = (
-        preambule + premabule21 + preambule4 + preambule5 + preambule22 + preambule2 + preambule3
+        preambule
+        + premabule21
+        + preambule4
+        + preambule5
+        + preambule22
+        + preambule2
+        + preambule3
     )
     with open(nom_fichier, "w", encoding="utf-8") as fichier:
         fichier.write(preambule)
@@ -304,56 +316,44 @@ def extraire_difficulte(q):
         return 1
 
 
-def generate_exam(
-    nombre_question: int,
-    theme: list,
-    mode: str,
-    nom_fichier: str,
-    date: str,
-    correction: bool,
-    exercice=False,
-    base_donnée="qcm_questions.yaml",
-    titre_cours="Question de cours", 
-    titre_eval="Test UE Algorithmie et programmation"
-):
+def generate_exam(date: str, base_donnée: str):
     base = charger_questions(base_donnée)
     package = [
-        "inputenc",
-        "graphicx",
-        "enumitem",
-        "amssymb",
-        "tabularx",
-        "calc",
-        "cprotect",
-        "xcolor",
-        "geometry",
-        "fancybox",
-        "pifont",
-        "ifthen",
-        "calc"
+        "inputenc", "graphicx", "enumitem", "amssymb", "tabularx", "calc",
+        "cprotect", "xcolor", "geometry", "fancybox", "pifont", "ifthen"
     ]
     latex_code = ""
+    paramètres = base.get("instructions", [])
+    nombre_question = paramètres.get("nombre_question", 20)
+    theme = paramètres.get("theme", [])
+    mode = paramètres.get("mode", "AND")
+    nom_fichier = paramètres.get("nom_fichier", "test.tex")
+    correction = paramètres.get("correction", True)
+    exercice = paramètres.get("exercice", False)
+    titre_cours = paramètres.get("titre_section_cours", "Question de cours")
+    titre_eval = paramètres.get("titre_eval", "Test UE Algorithmie et programmation")
     tous_les_exercices = base.get("exercices", [])
     exercices = filtre_exercices(tous_les_exercices, theme, mode=mode)
     exercices_simples = []
     exercices_complexes = []
-    for exercice in exercices:
-        questions = exercice.get("questions", [])
+
+    for exo in exercices:
+        questions = exo.get("questions", [])
         if len(questions) == 1:
-            exercices_simples.append(exercice)
+            exercices_simples.append(exo)
         elif len(questions) > 1:
-            exercices_complexes.append(exercice)
+            exercices_complexes.append(exo)
+
+    Liste_complexes = []
+    Liste_simples = []
+
     if exercice:
-        total_questions_complexes = 0
-        for exercice in exercices_complexes:
-            questions = exercice.get("questions", [])
-            total_questions_complexes = total_questions_complexes + len(questions)
+        total_questions_complexes = sum(len(e.get("questions", [])) for e in exercices_complexes)
         if nombre_question > total_questions_complexes:
             Liste_complexes = list(exercices_complexes)
             nb_manquantes = nombre_question - total_questions_complexes
             Liste_simples = exercices_simples[:nb_manquantes]
         else:
-            Liste_complexes = []
             indices_choisis = set()
             while len(Liste_complexes) < nombre_question:
                 idx = random.randrange(len(exercices_complexes))
@@ -371,21 +371,21 @@ def generate_exam(
             latex_code += "\\section*{" + titre_cours + "}\n"
             for groupe in Liste_simples:
                 latex_code += groupe_to_latex(groupe, correction=False) + "\n"
-
     else:
         Liste_simples = exercices_simples[:nombre_question]
         latex_code += "\\section*{" + titre_cours + "}\n"
         for groupe in Liste_simples:
             latex_code += groupe_to_latex(groupe, correction=False) + "\n"
+
     liste_package = []
     for question in exercices_simples + Liste_complexes:
-        if question.get("package", False):
-            for pack in question["package"]:
-                if not pack in package:
-                    liste_package.append(question["package"])
+        for pack in question.get("package", []):
+            if pack not in package and pack not in liste_package:
+                liste_package.append(pack)
 
     ecrire_latex(latex_code, nom_fichier, date, titre_eval, liste_package)
     final = generation_pdf(nom_fichier)
+
     if correction:
         correc = ""
         if exercice:
@@ -401,29 +401,39 @@ def generate_exam(
                 correc += groupe_to_latex(groupe, correction=True) + "\n"
         ecrire_latex(correc, "corrige.tex", date, titre_eval)
         generation_pdf("corrige.tex")
-    # Sauvegarde des questions sélectionnées dans un YAML
-    exam_yaml = {"exercices": []}
+    exam_yaml = {
+        "instructions": {
+            "nombre_question": nombre_question,
+            "theme": theme,
+            "mode": mode,
+            "nom_fichier": nom_fichier,
+            "correction": correction,
+            "exercice": exercice,
+            "titre_section_cours": titre_cours,
+            "titre_eval": titre_eval,
+        },
+        "exercices": [],
+    }
     numero_exercice = 1
     liste_exercices_selectionnes = Liste_complexes + Liste_simples
-    for exercice in liste_exercices_selectionnes:
+
+    for exo in liste_exercices_selectionnes:
         exercice_yaml = {
-            "nom": exercice.get("nom", ""),
-            "mots_clés": exercice.get("mots_clés", ""),
+            "nom": exo.get("nom", ""),
+            "mots_clés": exo.get("mots_clés", ""),
             "questions": [],
         }
-        questions = exercice.get("questions", [])
+        questions = exo.get("questions", [])
         numero_question = 1
         for question in questions:
-            if len(questions) > 1:
-                identifiant_question = f"{numero_exercice}.{numero_question}"
-            else:
-                identifiant_question = f"{numero_exercice}"
+            identifiant = f"{numero_exercice}.{numero_question}" if len(questions) > 1 else f"{numero_exercice}"
             nouvelle_question = dict(question)
-            nouvelle_question["question"] = identifiant_question
+            nouvelle_question["question"] = identifiant
             exercice_yaml["questions"].append(nouvelle_question)
             numero_question += 1
-            exam_yaml["exercices"].append(exercice_yaml)
-            numero_exercice += 1
+        exam_yaml["exercices"].append(exercice_yaml)
+        numero_exercice += 1
     with open("examen_selection.yaml", "w", encoding="utf-8") as fichier_yaml:
         yaml.dump(exam_yaml, fichier_yaml, sort_keys=False, allow_unicode=True)
+
     return final
