@@ -142,7 +142,7 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
 
 
 def ecrire_latex(
-    contenu_questions, nom_fichier, date, titre, correction=False, packages=[]
+    contenu_questions, nom_fichier, identifiant, institution, date, titre, correction=False, packages=[]
 ):
     date_2 = date.strftime("%d-%m-%Y")
     preambule = r"""\documentclass[12pt]{article}
@@ -227,9 +227,8 @@ def ecrire_latex(
 \begin{center}
   \begin{tabular}{c}
   \hline\\%\vspace{0.1cm}
-  {\textsc{\'Ecole Centrale Marseille}}\vspace{0.1cm}
+  {\textsc{""" + institution + r"""}}\vspace{0.1cm}
   \\
-
     {\bf {\Large"""
     preambule22 = (
         " "
@@ -251,20 +250,14 @@ def ecrire_latex(
 \noindent
 {\em Les réponses sont à donner directement sur le sujet. Un espace est réservé pour chaque réponse.}
 
-\vspace*{1cm}
+"""
+    preambule31 = r"""
+
+\vspace{2cm}
 \noindent
 \begin{tabular}{|l|p{10cm}|}
     \hline
-    Nom : & \\
-    \hline
-    Prénom : & \\
-    \hline
-    
-\end{tabular}
-
-
-\vspace*{2cm}
-\noindent
+""" + f"{identifiant} & \\\\ \n\\hline\n\\end{{tabular}}\n\\vspace*{{2cm}}\n" + r"""
 Barème. Pour chaque question : 
 \begin{itemize}
     \item ne pas répondre donne 0 point,
@@ -286,6 +279,7 @@ Barème. Pour chaque question :
         + preambule22
         + preambule2
         + preambule3
+        + preambule31
     )
     with open(nom_fichier, "w", encoding="utf-8") as fichier:
         fichier.write(preambule)
@@ -332,6 +326,8 @@ def generate_exam(date: str, base_donnée: str):
     exercice = paramètres.get("exercice", False)
     titre_cours = paramètres.get("titre_section_cours", "Question de cours")
     titre_eval = paramètres.get("titre_eval", "Test UE Algorithmie et programmation")
+    identifiant = paramètres.get("identifiant", "Nom/Prenom")
+    institution = paramètres.get("intitution", "Aix-Marseille-Université")
     tous_les_exercices = base.get("exercices", [])
     exercices = filtre_exercices(tous_les_exercices, theme, mode=mode)
     exercices_simples = []
@@ -383,7 +379,7 @@ def generate_exam(date: str, base_donnée: str):
             if pack not in package and pack not in liste_package:
                 liste_package.append(pack)
 
-    ecrire_latex(latex_code, nom_fichier, date, titre_eval, liste_package)
+    ecrire_latex(latex_code, nom_fichier, identifiant, institution, date, titre_eval, liste_package)
     final = generation_pdf(nom_fichier)
 
     if correction:
@@ -399,7 +395,7 @@ def generate_exam(date: str, base_donnée: str):
             correc += "\\section*{" + titre_cours + "}\n"
             for groupe in Liste_simples:
                 correc += groupe_to_latex(groupe, correction=True) + "\n"
-        ecrire_latex(correc, "corrige.tex", date, titre_eval)
+        ecrire_latex(correc, "corrige.tex", identifiant, institution, date, titre_eval)
         generation_pdf("corrige.tex")
     exam_yaml = {
         "instructions": {
