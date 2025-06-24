@@ -7,8 +7,9 @@ generate_exam(
     25,
     ["POO", "Algorithmie"],
     "AND_SPECIAL",
-    "autre.tex",
+    "test.tex",
     date,
     correction=True,
     exercice=True,
+    titre_eval="Test 1"
 )
