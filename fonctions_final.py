@@ -310,7 +310,7 @@ def extraire_difficulte(q):
         return 1
 
 
-def generate_exam(date: str, instructions: str, base_donnée: str):
+def generate_exam(date: str,base_donnée: str, instructions=""):
     if instructions == base_donnée:
         base = charger_questions(base_donnée)
         paramètres = base.get("instructions", [])
