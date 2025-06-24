@@ -161,7 +161,14 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
 
 
 def ecrire_latex(
-    contenu_questions, nom_fichier, identifiant, institution, date, titre, correction=False, packages=[]
+    contenu_questions,
+    nom_fichier,
+    identifiant,
+    institution,
+    date,
+    titre,
+    correction=False,
+    packages=[],
 ):
     date_2 = date.strftime("%d-%m-%Y")
     preambule = r"""\documentclass[12pt]{article}
@@ -205,7 +212,8 @@ def ecrire_latex(
     {\item[\ding{\numexpr171+\value{possibility}}]}%
 }
 """
-    preambule5 = r"""
+    preambule5 = (
+        r"""
 \newcommand{\leurre}{%
   \addtocounter{possibility}{1}
   \item[\ding{\numexpr171+\value{possibility}}]%
@@ -245,9 +253,12 @@ def ecrire_latex(
 \begin{center}
   \begin{tabular}{c}
   \hline\\%\vspace{0.1cm}
-  {\textsc{""" + institution + r"""}}\vspace{0.1cm}
+  {\textsc{"""
+        + institution
+        + r"""}}\vspace{0.1cm}
   \\
     {\bf {\Large"""
+    )
     preambule22 = (
         " "
         + titre
@@ -269,13 +280,16 @@ def ecrire_latex(
 {\em Les réponses sont à donner directement sur le sujet. Un espace est réservé pour chaque réponse.}
 
 """
-    preambule31 = r"""
+    preambule31 = (
+        r"""
 
 \vspace{2cm}
 \noindent
 \begin{tabular}{|l|p{10cm}|}
     \hline
-""" + f"{identifiant} & \\\\ \n\\hline\n\\end{{tabular}}\n\\vspace*{{2cm}}\n" + r"""
+"""
+        + f"{identifiant} & \\\\ \n\\hline\n\\end{{tabular}}\n\\vspace*{{2cm}}\n"
+        + r"""
 Barème. Pour chaque question : 
 \begin{itemize}
     \item ne pas répondre donne 0 point,
@@ -289,6 +303,7 @@ Barème. Pour chaque question :
 \end{itemize}
 \newpage
 """
+    )
     preambule = (
         preambule
         + premabule21
@@ -328,7 +343,7 @@ def extraire_difficulte(q):
         return 1
 
 
-def generate_exam(date: str,base_donnée: str, instructions=""):
+def generate_exam(date: str, base_donnée: str, instructions=""):
     if instructions == base_donnée:
         base = charger_questions(base_donnée)
         paramètres = base.get("instructions", [])
@@ -339,7 +354,9 @@ def generate_exam(date: str,base_donnée: str, instructions=""):
         correction = paramètres.get("correction", True)
         exercice = paramètres.get("exercice", False)
         titre_cours = paramètres.get("titre_section_cours", "Question de cours")
-        titre_eval = paramètres.get("titre_eval", "Test UE Algorithmie et programmation")
+        titre_eval = paramètres.get(
+            "titre_eval", "Test UE Algorithmie et programmation"
+        )
         identifiant = paramètres.get("identifiant", "Nom/Prenom")
         institution = paramètres.get("intitution", "Aix-Marseille-Université")
     else:
@@ -356,7 +373,9 @@ def generate_exam(date: str,base_donnée: str, instructions=""):
         correction = paramètres.get("correction", True)
         exercice = paramètres.get("exercice", False)
         titre_cours = paramètres.get("titre_section_cours", "Question de cours")
-        titre_eval = paramètres.get("titre_eval", "Test UE Algorithmie et programmation")
+        titre_eval = paramètres.get(
+            "titre_eval", "Test UE Algorithmie et programmation"
+        )
         identifiant = paramètres.get("identifiant", "Nom/Prenom")
         institution = paramètres.get("intitution", "Aix-Marseille-Université")
     tous_les_exercices = base.get("exercices", [])
@@ -364,8 +383,18 @@ def generate_exam(date: str,base_donnée: str, instructions=""):
     exercices_simples = []
     exercices_complexes = []
     package = [
-        "inputenc", "graphicx", "enumitem", "amssymb", "tabularx", "calc",
-        "cprotect", "xcolor", "geometry", "fancybox", "pifont", "ifthen"
+        "inputenc",
+        "graphicx",
+        "enumitem",
+        "amssymb",
+        "tabularx",
+        "calc",
+        "cprotect",
+        "xcolor",
+        "geometry",
+        "fancybox",
+        "pifont",
+        "ifthen",
     ]
     latex_code = ""
     for exo in exercices:
@@ -379,7 +408,9 @@ def generate_exam(date: str,base_donnée: str, instructions=""):
     Liste_simples = []
 
     if exercice:
-        total_questions_complexes = sum(len(e.get("questions", [])) for e in exercices_complexes)
+        total_questions_complexes = sum(
+            len(e.get("questions", [])) for e in exercices_complexes
+        )
         if nombre_question > total_questions_complexes:
             Liste_complexes = list(exercices_complexes)
             nb_manquantes = nombre_question - total_questions_complexes
@@ -407,14 +438,23 @@ def generate_exam(date: str,base_donnée: str, instructions=""):
         latex_code += "\\section*{" + titre_cours + "}\n"
         for groupe in Liste_simples:
             latex_code += groupe_to_latex(groupe, correction=False) + "\n"
-    
+
     liste_package = []
     for groupe in exercices_simples + Liste_complexes:
         for question in groupe.get("questions", []):
             if question.get("package"):
                 liste_package.append(question["package"])
     liste_package = list(set(liste_package))
-    ecrire_latex(latex_code, nom_fichier, identifiant, institution, date, titre=titre_eval, correction=False, packages=liste_package)
+    ecrire_latex(
+        latex_code,
+        nom_fichier,
+        identifiant,
+        institution,
+        date,
+        titre=titre_eval,
+        correction=False,
+        packages=liste_package,
+    )
     final = generation_pdf(nom_fichier)
 
     if correction:
@@ -430,7 +470,16 @@ def generate_exam(date: str,base_donnée: str, instructions=""):
             correc += "\\section*{" + titre_cours + "}\n"
             for groupe in Liste_simples:
                 correc += groupe_to_latex(groupe, correction=True) + "\n"
-        ecrire_latex(correc, "corrige.tex", identifiant, institution, date, titre=titre_eval, correction=False, packages=liste_package)
+        ecrire_latex(
+            correc,
+            "corrige.tex",
+            identifiant,
+            institution,
+            date,
+            titre=titre_eval,
+            correction=False,
+            packages=liste_package,
+        )
         generation_pdf("corrige.tex")
     exam_yaml = {
         "instructions": {
@@ -457,7 +506,11 @@ def generate_exam(date: str,base_donnée: str, instructions=""):
         questions = exo.get("questions", [])
         numero_question = 1
         for question in questions:
-            identifiant = f"{numero_exercice}.{numero_question}" if len(questions) > 1 else f"{numero_exercice}"
+            identifiant = (
+                f"{numero_exercice}.{numero_question}"
+                if len(questions) > 1
+                else f"{numero_exercice}"
+            )
             nouvelle_question = dict(question)
             nouvelle_question["question"] = identifiant
             exercice_yaml["questions"].append(nouvelle_question)
