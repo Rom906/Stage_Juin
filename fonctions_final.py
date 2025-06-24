@@ -141,11 +141,12 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
     return latex
 
 
-def ecrire_latex(contenu_questions, nom_fichier, date, correction=False, packages=[]):
+def ecrire_latex(contenu_questions, nom_fichier, date, titre, correction=False, packages=[]):
     date_2 = date.strftime("%d-%m-%Y")
     preambule = r"""\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx}"""
+\usepackage{graphicx}
+\usepackage{calc}"""
     total = ""
     for i in range(len(packages)):
         total += "\\usepackage{" + packages[i] + "}\n"
@@ -227,7 +228,8 @@ def ecrire_latex(contenu_questions, nom_fichier, date, correction=False, package
   {\textsc{\'Ecole Centrale Marseille}}\vspace{0.1cm}
   \\
 
-    {\bf {\Large Modélisation et Conception Objet}}\\%\vspace{0.2cm}
+    {\bf {\Large""" 
+    preambule22 = " " + titre + r"""}}\\%\vspace{0.2cm}
     \\
     {\bf  { Contrôle 1A }}\\"""
     preambule2 = r"""
@@ -271,7 +273,7 @@ Barème. Pour chaque question :
 \newpage
 """
     preambule = (
-        preambule + premabule21 + preambule4 + preambule5 + preambule2 + preambule3
+        preambule + premabule21 + preambule4 + preambule5 + preambule22 + preambule2 + preambule3
     )
     with open(nom_fichier, "w", encoding="utf-8") as fichier:
         fichier.write(preambule)
@@ -311,7 +313,8 @@ def generate_exam(
     correction: bool,
     exercice=False,
     base_donnée="qcm_questions.yaml",
-    titre_cours="Question de cours",
+    titre_cours="Question de cours", 
+    titre_eval="Test UE Algorithmie et programmation"
 ):
     base = charger_questions(base_donnée)
     package = [
@@ -327,6 +330,7 @@ def generate_exam(
         "fancybox",
         "pifont",
         "ifthen",
+        "calc"
     ]
     latex_code = ""
     tous_les_exercices = base.get("exercices", [])
@@ -380,7 +384,7 @@ def generate_exam(
                 if not pack in package:
                     liste_package.append(question["package"])
 
-    ecrire_latex(latex_code, nom_fichier, date, liste_package)
+    ecrire_latex(latex_code, nom_fichier, date, titre_eval, liste_package)
     final = generation_pdf(nom_fichier)
     if correction:
         correc = ""
@@ -395,7 +399,7 @@ def generate_exam(
             correc += "\\section*{" + titre_cours + "}\n"
             for groupe in Liste_simples:
                 correc += groupe_to_latex(groupe, correction=True) + "\n"
-        ecrire_latex(correc, "corrige.tex", date)
+        ecrire_latex(correc, "corrige.tex", date, titre_eval)
         generation_pdf("corrige.tex")
     # Sauvegarde des questions sélectionnées dans un YAML
     exam_yaml = {"exercices": []}
