@@ -9,9 +9,9 @@ def enonce_propre(texte):
     index = texte.find(end_algo_tag)
 
     if index != -1:
-        index_fin = index + len(end_algo_tag)
-        partie_algo = texte[:index_fin]
-        reste = texte[index_fin:].strip()
+        indice_fin = index + len(end_algo_tag)
+        partie_algo = texte[:indice_fin]
+        reste = texte[indice_fin:].strip()
 
         result = partie_algo + "\n\n"
         if reste:

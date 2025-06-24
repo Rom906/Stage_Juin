@@ -7,7 +7,7 @@ latex_code = r"""
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
-\usepackage[linesnumbered, ruled, vlined, french, frenchkw]{algorithm2e}
+\usepackage[linesnumbered, ruled, lined, french, frenchkw]{algorithm2e}
 
 % Définition manuelle de TantQue
 \newcommand{\TantQue}[2]{\While{#1}{#2}}
