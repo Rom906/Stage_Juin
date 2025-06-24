@@ -5,12 +5,20 @@ from fonctions_base_données import charger_questions, filtre_exercices
 
 
 def enonce_propre(texte):
-    if r"\end{algorithm}" in texte:
-        partie_algo, reste = texte.split(r"\end{algorithm}", 1)
-        partie_algo += r"\end{algorithm}" + "\n\n"
-        reste = reste.strip()
-        enonce_part = "\\enonce{" + reste + "}\n" if reste else "\\enonce{}\n"
-        return partie_algo + enonce_part
+    end_algo_tag = r"\end{algorithm}"
+    index = texte.find(end_algo_tag)
+
+    if index != -1:
+        index_fin = index + len(end_algo_tag)
+        partie_algo = texte[:index_fin]
+        reste = texte[index_fin:].strip()
+
+        result = partie_algo + "\n\n"
+        if reste:
+            result += "\\enonce{" + reste + "}\n"
+        else:
+            result += "\\enonce{}\n"
+        return result
     else:
         return "\\enonce{" + texte + "}\n"
 
