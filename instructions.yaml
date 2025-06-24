@@ -1,0 +1,10 @@
+instructions:
+  nombre_question: 25
+  theme: ["POO", "Algorithmie"]
+  mode: "AND_SPECIAL"
+  nom_fichier: "autre.tex"
+  correction: True
+  exercice: True
+  titre_section_cours: "Question de cours"
+  titre_eval: "Test UE Algorithmie et programmation"
+  institution: "Aix-Marseille-Université"

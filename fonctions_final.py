@@ -310,29 +310,46 @@ def extraire_difficulte(q):
         return 1
 
 
-def generate_exam(date: str, base_donnée: str):
-    base = charger_questions(base_donnée)
+def generate_exam(date: str, instructions: str, base_donnée: str):
+    if instructions == base_donnée:
+        base = charger_questions(base_donnée)
+        paramètres = base.get("instructions", [])
+        nombre_question = paramètres.get("nombre_question", 20)
+        theme = paramètres.get("theme", [])
+        mode = paramètres.get("mode", "AND")
+        nom_fichier = paramètres.get("nom_fichier", "test.tex")
+        correction = paramètres.get("correction", True)
+        exercice = paramètres.get("exercice", False)
+        titre_cours = paramètres.get("titre_section_cours", "Question de cours")
+        titre_eval = paramètres.get("titre_eval", "Test UE Algorithmie et programmation")
+        identifiant = paramètres.get("identifiant", "Nom/Prenom")
+        institution = paramètres.get("intitution", "Aix-Marseille-Université")
+    else:
+        base = charger_questions(base_donnée)
+        with open(instructions, "r", encoding="utf-8") as f:
+            instruc = yaml.safe_load(f)
+        paramètres = instruc.get("instructions", False)
+        if not paramètres:
+            print("Les intructions sont manquantes")
+        nombre_question = paramètres.get("nombre_question", 20)
+        theme = paramètres.get("theme", [])
+        mode = paramètres.get("mode", "AND")
+        nom_fichier = paramètres.get("nom_fichier", "test.tex")
+        correction = paramètres.get("correction", True)
+        exercice = paramètres.get("exercice", False)
+        titre_cours = paramètres.get("titre_section_cours", "Question de cours")
+        titre_eval = paramètres.get("titre_eval", "Test UE Algorithmie et programmation")
+        identifiant = paramètres.get("identifiant", "Nom/Prenom")
+        institution = paramètres.get("intitution", "Aix-Marseille-Université")
+    tous_les_exercices = base.get("exercices", [])
+    exercices = filtre_exercices(tous_les_exercices, theme, mode=mode)
+    exercices_simples = []
+    exercices_complexes = []
     package = [
         "inputenc", "graphicx", "enumitem", "amssymb", "tabularx", "calc",
         "cprotect", "xcolor", "geometry", "fancybox", "pifont", "ifthen"
     ]
     latex_code = ""
-    paramètres = base.get("instructions", [])
-    nombre_question = paramètres.get("nombre_question", 20)
-    theme = paramètres.get("theme", [])
-    mode = paramètres.get("mode", "AND")
-    nom_fichier = paramètres.get("nom_fichier", "test.tex")
-    correction = paramètres.get("correction", True)
-    exercice = paramètres.get("exercice", False)
-    titre_cours = paramètres.get("titre_section_cours", "Question de cours")
-    titre_eval = paramètres.get("titre_eval", "Test UE Algorithmie et programmation")
-    identifiant = paramètres.get("identifiant", "Nom/Prenom")
-    institution = paramètres.get("intitution", "Aix-Marseille-Université")
-    tous_les_exercices = base.get("exercices", [])
-    exercices = filtre_exercices(tous_les_exercices, theme, mode=mode)
-    exercices_simples = []
-    exercices_complexes = []
-
     for exo in exercices:
         questions = exo.get("questions", [])
         if len(questions) == 1:
