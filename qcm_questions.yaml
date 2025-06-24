@@ -7,7 +7,7 @@ exercices:
         libre: true
         difficulte: "1"
         cadre: "4cm"
-        package: ["calc"]
+        package: "\\usepackage[T1]{fontenc}\n\\usepackage[linesnumbered, ruled, vlined, french, frenchkw]{algorithm2e}\n\\newcommand{\\TantQue}[2]{\\While{#1}{#2}}"
 
       - question: "1.2"
         enonce: Donnez la complexité de l'algorithme mul en fonction de x.

@@ -4,6 +4,17 @@ import random
 from fonctions_base_données import charger_questions, filtre_exercices
 
 
+def enonce_propre(texte):
+    if r"\end{algorithm}" in texte:
+        partie_algo, reste = texte.split(r"\end{algorithm}", 1)
+        partie_algo += r"\end{algorithm}" + "\n\n"
+        reste = reste.strip()
+        enonce_part = "\\enonce{" + reste + "}\n" if reste else "\\enonce{}\n"
+        return partie_algo + enonce_part
+    else:
+        return "\\enonce{" + texte + "}\n"
+
+
 def groupe_to_latex(groupe, correction=False, exercice=True):
     latex = ""
     if "questions" in groupe:
@@ -19,6 +30,7 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
         if not isinstance(q, dict):
             print("Attention, un élément n'est pas un dictionnaire:", q)
             continue
+
         # QCM
         if not q.get("libre", False):
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
@@ -32,8 +44,8 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
                     + "}\n"
                 )
                 latex += "\\end{figure}\n"
+            latex += enonce_propre(q["enonce"])
 
-            latex += "\\enonce{" + q["enonce"] + "}\n"
             latex += "\\begin{center}\n\\fbox{%\n\\begin{minipage}{0.9\\linewidth}\n"
             latex += "\\setcounter{possibility}{0}\n\\possibilites{\n"
 
@@ -81,8 +93,7 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
                     + "}\n"
                 )
                 latex += "\\end{figure}\n"
-
-            latex += "\\enonce{" + q["enonce"] + "}\n"
+            latex += enonce_propre(q["enonce"])
 
             if "choix" in q:
                 latex += (
@@ -135,7 +146,7 @@ def groupe_to_latex(groupe, correction=False, exercice=True):
     """
         else:
             latex += "\\difficulte{" + str(q.get("difficulte", "?")) + "}\n"
-            latex += "\\enonce{" + q["enonce"] + "}\n"
+            latex += enonce_propre(q["enonce"])
 
         latex += "\n\\vspace{1cm}\n"
     return latex
@@ -150,8 +161,7 @@ def ecrire_latex(
 \usepackage{graphicx}
 \usepackage{calc}"""
     total = ""
-    for i in range(len(packages)):
-        total += "\\usepackage{" + packages[i] + "}\n"
+    total = "\n".join(packages) + "\n"
     premabule21 = (
         total
         + r"""
@@ -389,14 +399,14 @@ def generate_exam(date: str,base_donnée: str, instructions=""):
         latex_code += "\\section*{" + titre_cours + "}\n"
         for groupe in Liste_simples:
             latex_code += groupe_to_latex(groupe, correction=False) + "\n"
-
+    
     liste_package = []
-    for question in exercices_simples + Liste_complexes:
-        for pack in question.get("package", []):
-            if pack not in package and pack not in liste_package:
-                liste_package.append(pack)
-
-    ecrire_latex(latex_code, nom_fichier, identifiant, institution, date, titre_eval, liste_package)
+    for groupe in exercices_simples + Liste_complexes:
+        for question in groupe.get("questions", []):
+            if question.get("package"):
+                liste_package.append(question["package"])
+    liste_package = list(set(liste_package))
+    ecrire_latex(latex_code, nom_fichier, identifiant, institution, date, titre=titre_eval, correction=False, packages=liste_package)
     final = generation_pdf(nom_fichier)
 
     if correction:
@@ -412,7 +422,7 @@ def generate_exam(date: str,base_donnée: str, instructions=""):
             correc += "\\section*{" + titre_cours + "}\n"
             for groupe in Liste_simples:
                 correc += groupe_to_latex(groupe, correction=True) + "\n"
-        ecrire_latex(correc, "corrige.tex", identifiant, institution, date, titre_eval)
+        ecrire_latex(correc, "corrige.tex", identifiant, institution, date, titre=titre_eval, correction=False, packages=liste_package)
         generation_pdf("corrige.tex")
     exam_yaml = {
         "instructions": {
@@ -448,5 +458,4 @@ def generate_exam(date: str,base_donnée: str, instructions=""):
         numero_exercice += 1
     with open("examen_selection.yaml", "w", encoding="utf-8") as fichier_yaml:
         yaml.dump(exam_yaml, fichier_yaml, sort_keys=False, allow_unicode=True)
-
     return final

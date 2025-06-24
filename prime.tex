@@ -1,24 +1,25 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[linesnumbered, ruled, vlined, french, frenchkw]{algorithm2e}
+\begin{document}
 % QUESTION
-\begin{framed}
-\ttfamily
-programme mul(x: entier, y: entier) $\to$ entier :
 
-\quad $r \gets 0$
-
-\quad tant que $x \neq 0$ :
-
-\quad\quad si $x$ est impair :
-
-\quad\quad\quad $x \gets x - 1$
-
-\quad\quad\quad $r \gets r + y$
-
-\quad\quad $x \gets x / 2$
-
-\quad\quad $y \gets y * 2$
-
-\quad rendre $r$
-\end{framed}
-
-Montrer que le programme mul est un algorithme.
+\begin{algorithm}
+\DontPrintSemicolon
+\Entree{$x, y$ deux entiers}
+\Sortie{Le produit $x \times y$}
+$r \gets 0$\;
+\TantQue{$x \neq 0$}{
+  \Si{$x$ est impair}{
+    $x \gets x - 1$\;
+    $r \gets r + y$\;
+  }
+  $x \gets x / 2$\;
+  $y \gets y \times 2$\;
+}
+\Retour{$r$}
+\end{algorithm}
+Montrer que le programme mul est un algorithme
 % FIN
+\end{document}
