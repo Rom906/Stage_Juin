@@ -1,6 +1,10 @@
 import yaml
 import os
 
+AND = "AND"
+OR = "OR"
+AND_SPECIAL = "AND_SPECIAL"
+
 
 def charger_questions(fichier_yaml):
     dossier = os.path.dirname(fichier_yaml)
@@ -55,11 +59,11 @@ def filtre_exercices(exercices, tags_recherches, mode="AND"):
         if isinstance(tags, str):
             tags = [tags]
 
-        if mode == "AND":
+        if mode == AND:
             if est_sous_liste(tags_recherches, tags):
                 exercices_filtres.append(exercice)
 
-        elif mode == "OR":
+        elif mode == OR:
             trouve = False
             for t in tags_recherches:
                 if t in tags:
@@ -68,13 +72,11 @@ def filtre_exercices(exercices, tags_recherches, mode="AND"):
             if trouve:
                 exercices_filtres.append(exercice)
 
-        elif mode == "AND_SPECIAL":
+        elif mode == AND_SPECIAL:
             condition_1 = est_sous_liste(tags_recherches, tags)
             condition_2 = (len(tags) == 1) and (tags[0] in tags_recherches)
             if condition_1 or condition_2:
                 exercices_filtres.append(exercice)
-
         else:
             raise ValueError(f"Mode inconnu : {mode}")
-
     return exercices_filtres
