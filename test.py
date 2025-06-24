@@ -7,30 +7,26 @@ latex_code = r"""
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
-\usepackage[linesnumbered, ruled, lined, french, frenchkw]{algorithm2e}
+\usepackage[linesnumbered, ruled, vlined, french, frenchkw]{algorithm2e}
 
-% Définition manuelle de TantQue
-\newcommand{\TantQue}[2]{\While{#1}{#2}}
-
+\newcommand{\PourChaque}[2]{\ForEach{#1}{#2}}
+\SetAlgoNoEnd
 \begin{document}
 
 \begin{algorithm}
 \DontPrintSemicolon
-\Entree{$x, y$ deux entiers}
-\Sortie{Le produit $x \times y$}
-$r \gets 0$\;
-\TantQue{$x \neq 0$}{
-  \Si{$x$ est impair}{
-    $x \gets x - 1$\;
-    $r \gets r + y$\;
-  }
-  $x \gets x / 2$\;
-  $y \gets y \times 2$\;
+\Entree{Une liste $L$}
+\Sortie{La somme des éléments de $L$}
+$s \gets 0$\;
+\PourChaque{$x \in L$}{
+  $s \gets s + x$\;
 }
-\Retour{$r$}
+\Retour{$s$}
 \end{algorithm}
 
 \end{document}
+
+
 
 """
 

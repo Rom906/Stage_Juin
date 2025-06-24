@@ -1,25 +1,27 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[linesnumbered, ruled, lined, french, frenchkw]{algorithm2e}
+\usepackage[linesnumbered, ruled, lined, englishkw]{algorithm2e}
 \begin{document}
 % QUESTION
 
 \begin{algorithm}
 \DontPrintSemicolon
-\Entree{$x, y$ deux entiers}
-\Sortie{Le produit $x \times y$}
+\KwData{$x, y$ two integers}
+\KwResult{The product $x \times y$}
 $r \gets 0$\;
-\TantQue{$x \neq 0$}{
-  \Si{$x$ est impair}{
+\While{$x \neq 0$}{
+  \If{$x$ is odd}{
     $x \gets x - 1$\;
     $r \gets r + y$\;
   }
   $x \gets x / 2$\;
   $y \gets y \times 2$\;
 }
-\Retour{$r$}
+\Return{$r$}
 \end{algorithm}
-Montrer que le programme mul est un algorithme
+
+Montrer que le programme \texttt{mul} est un algorithme.
+
 % FIN
 \end{document}
