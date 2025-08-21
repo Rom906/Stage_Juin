@@ -1,7 +1,0 @@
-- ~~correction pour tout (fait)~~
-- ~~liste pour les tags (fait)~~
-- ~~latex à incorporer (fait)~~
-- ~~creer un nouveau yaml (fait)~~
-- ~~nom questions cours doit etre un paramètre !! (fait)~~
-- ~~package à incorporer à verifier dans une liste (fait)~~
-- changer de page quand le cadre depasse avec la question !! (semaine pro)
