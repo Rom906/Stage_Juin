@@ -382,20 +382,6 @@ def generate_exam(date: str, base_donnée: str, instructions=""):
     exercices = filtre_exercices(tous_les_exercices, theme, mode=mode)
     exercices_simples = []
     exercices_complexes = []
-    package = [
-        "inputenc",
-        "graphicx",
-        "enumitem",
-        "amssymb",
-        "tabularx",
-        "calc",
-        "cprotect",
-        "xcolor",
-        "geometry",
-        "fancybox",
-        "pifont",
-        "ifthen",
-    ]
     latex_code = ""
     for exo in exercices:
         questions = exo.get("questions", [])

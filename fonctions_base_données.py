@@ -42,16 +42,6 @@ def est_sous_liste(petits, grands):
 
 
 def filtre_exercices(exercices, tags_recherches, mode="AND"):
-    """
-    Filtre la liste d'exercices selon les tags recherchés et le mode choisi.
-
-    - mode "AND" : tous les tags doivent être présents
-    - mode "OR" : au moins un tag doit être présent
-    - mode "AND_SPECIAL" :
-         soit tous les tags sont présents,
-         soit l'exercice a exactement un tag parmi les tags recherchés
-         (aucun autre tag)
-    """
     exercices_filtres = []
 
     for exercice in exercices:
